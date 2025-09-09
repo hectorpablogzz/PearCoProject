@@ -10,28 +10,28 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            Tab("Inicio", systemImage: "paperplane") {
+            Tab("Inicio", systemImage: "house.fill") {
                 HomeView()
             }
 
 
-            Tab("Cámara", systemImage: "person.crop.circle.fill") {
+            Tab("Cámara", systemImage: "camera.fill") {
                 CameraView()
             }
 
 
             TabSection("Messages") {
-                Tab("Alertas", systemImage: "tray.and.arrow.down.fill") {
+                Tab("Alertas", systemImage: "bell.fill") {
                     AlertView()
                 }
 
 
-                Tab("Historial", systemImage: "tray.and.arrow.up.fill") {
+                Tab("Historial", systemImage: "clock.fill") {
                     RecordsView()
                 }
 
 
-                Tab("Cuenta", systemImage: "pencil") {
+                Tab("Cuenta", systemImage: "person.crop.circle.fill") {
                     AccountView()
                 }
             }
