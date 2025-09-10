@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var admin = false
     var body: some View {
         TabView {
             Tab("Inicio", systemImage: "house.fill") {
@@ -32,7 +33,11 @@ struct ContentView: View {
 
 
                 Tab("Cuenta", systemImage: "person.crop.circle.fill") {
-                    AccountView()
+                    if admin {
+                            AlertView()
+                        } else {
+                            AccountView()
+                        }
                 }
             }
         }
