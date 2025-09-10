@@ -10,7 +10,16 @@ import SwiftUI
 struct HomeView: View {
     
     let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color de tu app
+    let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
 
+    // Datos de ejemplo
+    let enfermedades = [
+        ("Broca", 0.75),
+        ("Roya", 0.45),
+        ("Ojo de gallo", 0.60),
+        ("Antracnosis", 0.30)
+    ]
+    
     var body: some View {
         HStack(spacing: 0) {
             // Franja verde lateral
@@ -57,37 +66,39 @@ struct HomeView: View {
                     print("Tomar foto")
                 }) {
                     Text("Tomar foto")
-                        .font(.title2)
+                        .font(.title)
                         .foregroundColor(.white)
                         .padding()
-                        .frame(maxWidth: 400)
+                        .frame(maxWidth: 500, maxHeight: 100)
                         .background(verdeOscuro)
                         .cornerRadius(15)
                 }
                 
-                // Alerta
-                HStack {
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .foregroundColor(.red)
+               //Gráfica
+                VStack(spacing: 50) {
+                    Text("Probabilidad de Enfermedades")
                         .font(.title2)
-                    VStack(alignment: .leading) {
-                        Text("Marchitez detectada")
-                            .foregroundColor(.red)
-                            .bold()
-                            .font(.title3)
-                        Text("Hace 20 min")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
+                        .fontWeight(.bold)
+                        .foregroundColor(verdeOscuro)
+                    
+                    HStack(alignment: .bottom, spacing: 50) {
+                        ForEach(enfermedades, id: \.0) { (nombre, valor) in
+                            VStack {
+                                Rectangle()
+                                    .fill(sageGreen)
+                                    .frame(width: 60, height: CGFloat(valor) * 200)
+                                    .cornerRadius(6)
+                                
+                                Text(nombre)
+                                    .font(.callout)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 90)
+                            }
+                        }
                     }
                 }
                 
-                // Historial
-                HStack {
-                    Image(systemName: "leaf.fill")
-                        .font(.title3)
-                    Text("Café - 29 feb 2024, 11:30")
-                        .font(.title3)
-                }
+                
                 
                 Spacer()
                 
