@@ -10,14 +10,27 @@ import SwiftUI
 struct CustomTabView: View {
     var body: some View {
         TabView {
-            Tab("Inicio", systemImage: "house.fill") {
+            NavigationStack {
                 HomeView()
             }
-
-            Tab("Cámara", systemImage: "camera.fill") {
-                CameraView()
+            .tabItem {
+                Image(systemName: "house.fill")
+                Text("Inicio")
             }
 
+<<<<<<< Updated upstream
+            Tab("Cámara", systemImage: "camera.fill") {
+=======
+            NavigationStack {
+>>>>>>> Stashed changes
+                CameraView()
+            }
+            .tabItem {
+                Image(systemName: "camera.fill")
+                Text("Cámara")
+            }
+
+<<<<<<< Updated upstream
             Tab("Mensajes", systemImage: "bell.fill") {
                 AlertView()
             }
@@ -34,6 +47,44 @@ struct CustomTabView: View {
         .background(Color.gray.opacity(0.2)
             .cornerRadius(10)
             .shadow(radius: 5)
+=======
+            NavigationStack {
+                AlertView()
+            }
+            .tabItem {
+                Image(systemName: "bell.fill")
+                Text("Mensajes")
+            }
+
+            NavigationStack {
+                AllReportsView()
+            }
+            .tabItem {
+                Image(systemName: "document.fill")
+                Text("Reportes")
+            }
+
+            NavigationStack {
+                AccountView()
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle.fill")
+                Text("Cuenta")
+            }
+
+            NavigationStack {
+                FarmersView()
+            }
+            .tabItem {
+                Image(systemName: "person.2.fill")
+                Text("Personas")
+            }
+        }
+        .background(
+            Color.gray.opacity(0.2)
+                .cornerRadius(10)
+                .shadow(radius: 5)
+>>>>>>> Stashed changes
         )
     }
 }
@@ -42,3 +93,4 @@ struct CustomTabView: View {
 #Preview {
     CustomTabView()
 }
+

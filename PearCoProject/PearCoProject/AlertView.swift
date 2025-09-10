@@ -9,30 +9,55 @@ import SwiftUI
 
 struct AlertView: View {
     var body: some View {
-        Text("Alertas")
-            .font(.title)
-            .fontWeight(.bold)
-            .foregroundColor(.brown)
-        
-        VStack(alignment: .leading, spacing: 20) {
-            Text("Enfermedades")
-                .font(.headline)
-            
-            Alert(image: "AlertExample",
-                  title: "Solucionar plaga",
-                  description: "Aplica el trataminto necesario")
-            
-            Text("Fertilización")
-                .font(.headline)
-            
-            Alert(image: "AlertExample",
-                  title: "Fertilizar",
-                  description: "Revisar estado de fertilización")
+        GeometryReader { geo in
+            VStack(alignment: .leading) {
+                
+                Text("Alertas")
+                    .font(.system(size: geo.size.width * 0.06, weight: .bold))
+                    .padding()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
+                        Text("Enfermedades")
+                            .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                            .padding()
+                        
+                        Alert(category: "Enfermedades",
+                              image: "AlertExample",
+                              title: "Solucionar plaga",
+                              description: "Aplica el tratamiento necesario para combatir la broca del cafe",
+                              geo: geo)
+                        
+                        Text("Fertilización")
+                            .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                            .padding()
+                        
+                        Alert(category: "Fertilización",
+                              image: "AlertaFertilizar",
+                              title: "Fertilizar",
+                              description: "Revisar estado de fertilización de la parcela",
+                              geo: geo)
+                        
+                        Text("Clima")
+                            .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                            .padding()
+                        
+                        Alert(category: "Clima",
+                              image: "AlertaClima",
+                              title: "Clima extremadamente caluroso",
+                              description: "Recuerda regar las plantas",
+                              geo: geo)
+                        
+                        Alert(category: "Clima",
+                              image: "AlertaClima",
+                              title: "Clima propenso a enfermedades",
+                              description: "Las condiciones actuales del clima pueden  generar enfermedades, toma precauciones",
+                              geo: geo)
+                    }
+                }
+            }
+            .frame(width: geo.size.width, height: geo.size.height)
         }
-        .padding(.horizontal, 15)
-        .padding(.top, 15)
-        
-        Spacer()
     }
 }
 
@@ -42,54 +67,60 @@ struct AlertView: View {
 
 struct Alert: View {
     @State private var isCompleted = false
+    let category: String
     let image: String
     let title: String
     let description: String
+    let geo: GeometryProxy
+    
+    var buttonColor: Color {
+        category == "Enfermedades" ? .red : Color.verdeOscuro
+    }
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                 Image(systemName: "ellipsis")
-                    .padding(.trailing, 8)
-                    .padding(.top, 8)
+                    .font(.system(size: geo.size.width * 0.04))
+                    .padding(.trailing, geo.size.width * 0.03)
+                    .padding(.top, geo.size.height * 0.01)
             }
             
-            HStack(spacing: 12) {
+            HStack(spacing: geo.size.width * 0.02) {
                 Image(image)
                     .resizable()
-                    .frame(width: 70, height: 70)
-                    .scaledToFit()
-                    .cornerRadius(8)
+                    .scaledToFill()
+                    .frame(width: geo.size.width * 0.18, height: geo.size.width * 0.18)
+                    .cornerRadius(geo.size.width * 0.03)
                 
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: geo.size.height * 0.01) {
                     Text(title)
-                        .font(.headline)
-                        .padding(.leading, 4)
+                        .font(.system(size: geo.size.width * 0.03, weight: .bold))
+                        .foregroundColor(.primary)
                     Text(description)
-                        .font(.subheadline)
+                        .font(.system(size: geo.size.width * 0.03))
                         .foregroundColor(.secondary)
-                        .padding(.leading, 4)
                 }
                 
                 Spacer()
                 
                 Text(isCompleted ? "Listo" : "Completar")
-                    .font(.caption)
+                    .font(.system(size: geo.size.width * 0.03, weight: .semibold))
                     .foregroundColor(isCompleted ? .gray : .white)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 10)
-                    .background(isCompleted ? Color.white : Color.green)
-                    .cornerRadius(20)
+                    .padding()
+                    .background(isCompleted ? Color(.white) : buttonColor)
+                    .cornerRadius(geo.size.width * 0.06)
                     .onTapGesture {
                         isCompleted.toggle()
                     }
             }
-            .padding([.horizontal, .bottom])
+            .padding(.horizontal, geo.size.width * 0.03)
+            .padding(.bottom, geo.size.height * 0.02)
         }
-        .frame(maxWidth: .infinity)
         .background(Color(.systemBackground))
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.2), radius: 6, x: 0, y: 4)
+        .cornerRadius(geo.size.width * 0.05)
+        .shadow(color: .black.opacity(0.15), radius: geo.size.width * 0.02, x: 0, y: geo.size.height * 0.005)
+        .padding(.horizontal, geo.size.width * 0.02)
     }
 }
