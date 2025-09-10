@@ -16,19 +16,18 @@ struct HomeView: View {
             // Franja verde lateral
             Rectangle()
                 .fill(verdeOscuro)
-                .frame(width: 80)
+                .frame(width: 100) // más ancho para iPad
             
             // Contenido principal
-            VStack(spacing: 30) {
+            VStack(spacing: 40) {
                 
                 // Título
                 Text("Menú Principal")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
+                    .font(.system(size: 40, weight: .bold))
                     .foregroundColor(verdeOscuro)
                 
                 Text("Toma una foto de la planta para analizar su salud")
-                    .font(.headline)
+                    .font(.title2)
                     .foregroundColor(.black)
 
                 // Imagen con botón circular encima
@@ -36,18 +35,18 @@ struct HomeView: View {
                     Image("planta")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(height: 200)
+                        .frame(height: 250)
                         .clipped()
-                        .cornerRadius(12)
+                        .cornerRadius(20)
                     
-                    // Botón circular
+                    // Botón circular de cámara
                     Button(action: {
                         print("Ir a cámara")
-                        // Navegar a otra vista aquí
                     }) {
                         Image(systemName: "camera")
+                            .font(.system(size: 30)) // icono más grande
                             .foregroundColor(.white)
-                            .padding()
+                            .padding(30)
                             .background(verdeOscuro)
                             .clipShape(Circle())
                     }
@@ -58,24 +57,26 @@ struct HomeView: View {
                     print("Tomar foto")
                 }) {
                     Text("Tomar foto")
+                        .font(.title2)
                         .foregroundColor(.white)
                         .padding()
-                        .frame(maxWidth: 300)
+                        .frame(maxWidth: 400)
                         .background(verdeOscuro)
-                        .cornerRadius(10)
+                        .cornerRadius(15)
                 }
-                
                 
                 // Alerta
                 HStack {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundColor(.red)
+                        .font(.title2)
                     VStack(alignment: .leading) {
                         Text("Marchitez detectada")
                             .foregroundColor(.red)
                             .bold()
+                            .font(.title3)
                         Text("Hace 20 min")
-                            .font(.caption)
+                            .font(.subheadline)
                             .foregroundColor(.gray)
                     }
                 }
@@ -83,26 +84,27 @@ struct HomeView: View {
                 // Historial
                 HStack {
                     Image(systemName: "leaf.fill")
+                        .font(.title3)
                     Text("Café - 29 feb 2024, 11:30")
+                        .font(.title3)
                 }
-                .font(.subheadline)
                 
                 Spacer()
                 
-                //Botón Microfono
+                // Botón de micrófono grande
                 Button(action: {
-                    print("Tomar foto")
+                    print("Micrófono")
                 }) {
-                    Image(systemName: "microphone")
+                    Image(systemName: "mic.fill")
+                        .font(.system(size: 40)) // icono más grande
                         .foregroundColor(.white)
-                        .padding()
-                        .frame(maxWidth: 2000)
+                        .frame(width: 100, height: 100)
                         .background(verdeOscuro)
                         .clipShape(Circle())
-                        .cornerRadius(10)
                 }
+                .padding(.bottom, 40)
             }
-            .padding(40)
+            .padding(50)
         }
     }
 }
