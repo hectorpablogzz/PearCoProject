@@ -23,6 +23,10 @@ struct CustomTabView: View {
             Tab("Mensajes", systemImage: "bell.fill") {
                 AlertView()
             }
+            
+            Tab("Reportes", systemImage: "document.fill") {
+                AllReportsView()
+            }
 
 
             //Tab("Historial", systemImage: "clock") {

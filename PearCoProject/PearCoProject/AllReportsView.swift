@@ -24,7 +24,7 @@ struct AllReportsView: View {
                     }
                 }
             }
-            .scrollContentBackground(.hidden)
+            //.scrollContentBackground(.hidden)
             .navigationTitle("Reportes")
         }
     }
