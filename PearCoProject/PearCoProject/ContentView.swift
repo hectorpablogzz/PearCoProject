@@ -26,8 +26,8 @@ struct ContentView: View {
                 }
 
 
-                Tab("Historial", systemImage: "clock.fill") {
-                    RecordsView()
+                Tab("Reportes", systemImage: "document.on.document.fill") {
+                    AllReportsView()
                 }
 
 
@@ -36,7 +36,6 @@ struct ContentView: View {
                 }
             }
         }
-        .padding()
     }
 }
 
