@@ -9,8 +9,27 @@ import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+            ScrollView {
+                VStack {
+                    AppStyle.CardView {
+                        Text("Contenido de la tarjeta")
+                            .font(.title)
+                            .foregroundColor(.black)
+                    }
+                    .padding(.horizontal)
+
+                    // Otra tarjeta
+                    AppStyle.CardView {
+                        Text("Otro contenido dentro de la tarjeta")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .background(AppStyle.backgroundColor)
+            .edgesIgnoringSafeArea(.all)
+        }
 }
 
 
