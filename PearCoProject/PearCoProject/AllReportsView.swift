@@ -12,6 +12,20 @@ struct AllReportsView: View {
     
     var body: some View {
         NavigationStack{
+            if(VM.isLoading) {
+                VStack {
+                    Text("Cargando...")
+                    ProgressView()
+                }
+                .padding(30)
+            }
+            
+            if(VM.hasError) {
+                Text("Error cargando reportes.")
+                    .foregroundStyle(Color.red)
+                    .padding(30)
+            }
+            
             List {
                 
                 Text("IMPORTANTE: Los reportes contienen recomendaciones basadas en algoritmos que pueden equivocarse. Antes de tomar decisiones importantes, es indispensable consultar con su técnico asignado.")
