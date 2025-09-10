@@ -91,7 +91,7 @@ struct AccountView: View {
                         .background(Color(.systemGray6))
                         .cornerRadius(12)
                     }
-                    .padding(.horizontal, 20)
+                    .padding(.horizontal, 50)
                     
                     Spacer()
                     
@@ -105,7 +105,7 @@ struct AccountView: View {
                             .padding()
                             .background(Color.verdeOscuro)
                             .cornerRadius(25)
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 70)
                     }
                     .padding(.bottom, 40)
                 }

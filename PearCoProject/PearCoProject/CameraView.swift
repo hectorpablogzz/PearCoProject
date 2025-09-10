@@ -4,71 +4,87 @@
 //
 //  Created by Alumno on 09/09/25.
 //
+
 import SwiftUI
 
 struct CameraView: View {
+    
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color de tu app
+
     var body: some View {
-        VStack {
-            // Franja verde a la izquierda
+        ZStack {
+            // Fondo beige que cubre toda la pantalla
+            Color(UIColor.systemBackground)
+                .edgesIgnoringSafeArea(.all)
+            
             HStack(spacing: 0) {
+                // Franja verde lateral más delgada
                 Rectangle()
-                    .fill(Color.green)
-                    .frame(width: 15) // Ancho de la franja verde
-                    .edgesIgnoringSafeArea(.vertical) // Asegura que la franja se extienda por toda la altura
+                    .fill(verdeOscuro)
+                    .frame(width: 80) // Franja más delgada
                 
-                // Contenido principal a la derecha
-                VStack {
+                // Contenido principal
+                VStack(spacing: 40) {
+                    // Título
                     Text("Diagnóstico por foto")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .padding(.top, 50)
+                        .font(.system(size: 40, weight: .bold))
+                        .foregroundColor(verdeOscuro)
                     
                     Text("Centre la planta en la cámara para continuar")
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                        .padding(.top, 10)
-                    
-                    Spacer()
-                    
-                    Image("plantImage") // Aquí agregas tu imagen de ejemplo
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300, height: 300)
-                        .overlay(
+                        .font(.title2)
+                        .foregroundColor(.black)
+
+                    // Imagen con botón circular encima
+                    ZStack {
+                        Image("CoffeePlant") // Asegúrate de tener la imagen
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 650, height: 800)
+                            .clipped()
+                            .cornerRadius(20)
+                        
+                        // Botón circular de cámara
+                        Button(action: {
+                            print("Ir a cámara")
+                        }) {
                             Image(systemName: "camera")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
+                                .font(.system(size: 30)) // icono más grande
                                 .foregroundColor(.white)
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .padding(.top, 30)
+                                .padding(30)
+                                .background(verdeOscuro)
+                                .clipShape(Circle())
+                        }
+                    }
                     
-                    Spacer()
-                    
+                    // Botón "Tomar foto"
                     Button(action: {
-                        // Acción de tomar foto
+                        print("Tomar foto")
                     }) {
                         Text("Tomar foto")
                             .font(.title2)
                             .foregroundColor(.white)
                             .padding()
-                            .background(Color.green)
-                            .cornerRadius(10)
-                            .padding(.bottom, 40)
+                            .frame(maxWidth: 400)
+                            .background(verdeOscuro)
+                            .cornerRadius(15)
                     }
+                    
+                    
+                    Spacer()
+                    
                 }
-                .padding()
-                .background(Color.white)
-                .cornerRadius(20)
-                .shadow(radius: 10)
-                .padding(.leading, 10) // Separación del borde de la franja verde
+                .padding(80)
             }
         }
-        .background(Color("beige")) // Color de fondo plano claro, puedes usar "beige" o cualquier color suave
-        .edgesIgnoringSafeArea(.all) // Asegura que el fondo ocupe toda la pantalla
     }
 }
+
+#Preview {
+    CameraView()
+}
+
+
+
 #Preview {
     CameraView()
 }
