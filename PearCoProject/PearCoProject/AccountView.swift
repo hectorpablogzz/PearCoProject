@@ -6,78 +6,112 @@
 //
 import SwiftUI
 
+extension Color {
+    static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+}
+
 struct AccountView: View {
+    @State private var showParcela = false
+    @State private var showConfig = false
+    
     var body: some View {
-        ZStack(alignment: .top) {
-            Color(.systemGroupedBackground)
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 30) {
-                Spacer().frame(height: 140)
-                
-                Image("agricultor")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 160, height: 160)
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle().stroke(Color.black, lineWidth: 1)
-                    )
-                    .shadow(radius: 5)
-                
-                VStack(alignment: .leading, spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Nombre de agricultor")
-                            .font(.headline)
-                        
-                        Text("Juan Pérez")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
-                    }
+        GeometryReader { geo in
+            ScrollView {
+                VStack(spacing: 20) {
                     
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Parcela a su cargo")
-                            .font(.headline)
-                        
-                        Text("Parcela Los Pinos")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
-                    }
+                    // Encabezado
+                    Text("Perfil agricultor")
+                        .font(.system(size: geo.size.width * 0.06, weight: .bold))
+                        .padding(.top, 40)
                     
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Técnico a cargo")
-                            .font(.headline)
+                    VStack(spacing: 8) {
+                        Image("agricultor_ejemplo")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width * 0.35,
+                                   height: geo.size.width * 0.35)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.black, lineWidth: 1))
                         
-                        Text("María López")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
+                        Text("Antonio Pérez")
+                            .font(.system(size: geo.size.width * 0.05, weight: .semibold))
+                        
+                        Text("antonio.perez@email.com")
+                            .foregroundColor(.gray)
+                            .font(.system(size: geo.size.width * 0.04))
                     }
+                    .padding(.bottom, 20)
+                    
+                    VStack(spacing: 12) {
+                        
+                        // Parcela
+                        DisclosureGroup(isExpanded: $showParcela) {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text("Parcela Los Pinos")
+                                    .font(.system(size: geo.size.width * 0.045, weight: .medium))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding(.top, 5)
+                        } label: {
+                            Text("Parcela de cultivo")
+                                .font(.system(size: geo.size.width * 0.05, weight: .semibold))
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                        
+                        // Configuración
+                        DisclosureGroup(isExpanded: $showConfig) {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Button("Notificaciones") { }
+                                    .foregroundColor(.verdeOscuro)
+                                    .font(.system(size: geo.size.width * 0.045))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Button("Preferencias") { }
+                                    .foregroundColor(.verdeOscuro)
+                                    .font(.system(size: geo.size.width * 0.045))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Button("Soporte") { }
+                                    .foregroundColor(.verdeOscuro)
+                                    .font(.system(size: geo.size.width * 0.045))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding(.top, 5)
+                        } label: {
+                            Text("Configuración")
+                                .font(.system(size: geo.size.width * 0.05, weight: .semibold))
+                                .foregroundColor(.black)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .padding()
+                        .background(Color(.systemGray6))
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        print("Cerrar sesión presionado")
+                    }) {
+                        Text("Cerrar sesión")
+                            .foregroundColor(.white)
+                            .font(.system(size: geo.size.width * 0.045, weight: .semibold))
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.verdeOscuro)
+                            .cornerRadius(25)
+                            .padding(.horizontal, 20)
+                    }
+                    .padding(.bottom, 40)
                 }
-                .padding(.horizontal, 40)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                Spacer()
+                .frame(width: geo.size.width)
             }
-            
-            Text("Perfil agricultor")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, 80)
-            HStack {
-                Spacer()
-                Button(action: {
-                    print("Cerrar sesión presionado")
-                }) {
-                    Text("Cerrar Sesión")
-                        .foregroundColor(.red)
-                        .font(.headline)
-                }
-                .padding(.trailing, 16)
-                .padding(.top, 20)
-            }
+            .background(Color.white)
         }
     }
 }
