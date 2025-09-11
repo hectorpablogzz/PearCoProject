@@ -9,73 +9,81 @@ import SwiftUI
 
 struct AlertView: View {
     
-    static let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
+    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
     
-    static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     
     var body: some View {
-        ZStack {
-            // Fondo
-            Color.white
-                .edgesIgnoringSafeArea(.all)
+        HStack {
+            // Franja verde lateral
+            Rectangle()
+                .fill(verdeOscuro)
+                .frame(width: 50)
+                .ignoresSafeArea(.all)
             
-            // Contenido principal
-            HStack(spacing: 0) {
-                GeometryReader { geo in
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
-                            Text("Alertas")
-                                .font(.system(size: 55, weight: .bold))
-                                .foregroundColor(Color.verdeOscuro)
-                                .frame(maxWidth: .infinity)
-                                .padding(.top, 20)
-                                .padding()
-                            
-                            Text("Enfermedades")
-                                .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding(.horizontal)
-                            
-                            Alert(category: "Enfermedades",
-                                  image: "AlertExample",
-                                  title: "Solucionar plaga",
-                                  description: "Aplica el tratamiento necesario para combatir la broca del cafe",
-                                  geo: geo)
-                            
-                            Text("Fertilización")
-                                .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding(.horizontal)
-                            
-                            Alert(category: "Fertilización",
-                                  image: "AlertaFertilizar",
-                                  title: "Fertilizar",
-                                  description: "Revisar estado de fertilización de la parcela",
-                                  geo: geo)
-                            
-                            Text("Clima")
-                                .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding(.horizontal)
-                            
-                            Alert(category: "Clima",
-                                  image: "AlertaClima",
-                                  title: "Clima extremadamente caluroso",
-                                  description: "Recuerda regar las plantas",
-                                  geo: geo)
-                            
-                            Alert(category: "Clima",
-                                  image: "AlertaClima",
-                                  title: "Clima propenso a enfermedades",
-                                  description: "Las condiciones actuales del clima pueden generar enfermedades, toma precauciones",
-                                  geo: geo)
-                            
-                            Spacer().frame(height: 150) // espacio para el botón flotante
+            ZStack {
+                // Fondo
+                Color.white
+                    .edgesIgnoringSafeArea(.all)
+                
+                // Contenido principal
+                HStack(spacing: 0) {
+                    GeometryReader { geo in
+                        ScrollView {
+                            VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
+                                Text("Alertas")
+                                    .font(.system(size: 55, weight: .bold))
+                                    .foregroundColor(verdeOscuro)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.top, 20)
+                                    .padding()
+                                
+                                Text("Enfermedades")
+                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                                    .padding(.horizontal)
+                                
+                                Alert(category: "Enfermedades",
+                                      image: "AlertExample",
+                                      title: "Solucionar plaga",
+                                      description: "Aplica el tratamiento necesario para combatir la broca del cafe",
+                                      geo: geo)
+                                
+                                Text("Fertilización")
+                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                                    .padding(.horizontal)
+                                
+                                Alert(category: "Fertilización",
+                                      image: "AlertaFertilizar",
+                                      title: "Fertilizar",
+                                      description: "Revisar estado de fertilización de la parcela",
+                                      geo: geo)
+                                
+                                Text("Clima")
+                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                                    .padding(.horizontal)
+                                
+                                Alert(category: "Clima",
+                                      image: "AlertaClima",
+                                      title: "Clima extremadamente caluroso",
+                                      description: "Recuerda regar las plantas",
+                                      geo: geo)
+                                
+                                Alert(category: "Clima",
+                                      image: "AlertaClima",
+                                      title: "Clima propenso a enfermedades",
+                                      description: "Las condiciones actuales del clima pueden generar enfermedades, toma precauciones",
+                                      geo: geo)
+                                
+                                Spacer().frame(height: 150) // espacio para el botón flotante
+                            }
+                            .frame(width: geo.size.width)
                         }
-                        .frame(width: geo.size.width)
                     }
                 }
+                
+                
+                MicrophoneButton(color: verdeOscuro)
             }
-            
-            
-            MicrophoneButton(color: AlertView.verdeOscuro)
         }
     }
 }
