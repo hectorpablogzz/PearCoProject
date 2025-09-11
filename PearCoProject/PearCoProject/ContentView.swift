@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color de tu app
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     var body: some View {
         
         CustomTabView()
