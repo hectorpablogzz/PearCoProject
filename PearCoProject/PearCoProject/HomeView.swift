@@ -11,7 +11,6 @@ struct HomeView: View {
     
     let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
-    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
 
     // Datos de ejemplo
     let enfermedades = [
@@ -27,7 +26,8 @@ struct HomeView: View {
                         // Franja verde lateral
                         Rectangle()
                             .fill(verdeOscuro)
-                            .frame(width: 50)
+                            .frame(width: 80)
+                            .ignoresSafeArea(.all)
                         
                         // Contenido principal
                         VStack(spacing: 40) {
@@ -45,7 +45,7 @@ struct HomeView: View {
                                 Image("planta")
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(height: 250)
+                                    .frame(height: 350)
                                     .clipped()
                                     .cornerRadius(20)
                                 
@@ -65,7 +65,7 @@ struct HomeView: View {
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: 500, maxHeight: 100)
-                                    .background(verdeBoton)
+                                    .background(verdeOscuro)
                                     .cornerRadius(15)
                             }
                             
@@ -96,19 +96,16 @@ struct HomeView: View {
                             
                             Spacer()
                             
-                            NavigationLink(destination: MicrophoneView()) {
-                                Image(systemName: "mic.fill")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.white)
-                                    .frame(width: 100, height: 100)
-                                    .background(verdeOscuro)
-                                    .clipShape(Circle())
-                            }
+                            
+                            
                             .padding(.bottom, 40)
                         }
                         .padding(50)
+                    
                     }
                 }
+       
+        
             }
     
 }
