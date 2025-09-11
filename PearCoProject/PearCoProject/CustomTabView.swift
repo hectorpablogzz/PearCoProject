@@ -23,7 +23,7 @@ struct CustomTabView: View {
             }
             .tabItem {
                 Image(systemName: "camera.fill")
-                Text("Cámara")
+                Text("Diagnóstico")
             }
 
             NavigationStack {
