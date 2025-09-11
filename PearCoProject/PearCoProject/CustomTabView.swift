@@ -31,7 +31,7 @@ struct CustomTabView: View {
             }
             .tabItem {
                 Image(systemName: "bell.fill")
-                Text("Mensajes")
+                Text("Alertas")
             }
 
             NavigationStack {

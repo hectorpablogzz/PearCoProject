@@ -21,13 +21,14 @@ struct ReportView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Text(report.title)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.verdeOscuro)
-                        .padding(.top)
-                    
+                        .font(.system(size: 55, weight: .bold))
+                        .foregroundColor(Color.verdeOscuro)
+                        .frame(maxWidth: .infinity)
+                        .padding(.top, 20)
+                        .padding()
                     Text(report.message)
-                        .padding(.horizontal)
+                        .font(.system(size: 25, weight: .semibold))
+                        .padding(30)
                     
                     // Gráficos
                     ChartSection(title: "% Riesgo de Roya", data: report.data.map { ($0.month, Double($0.royaRisk)) }, color: .red)
