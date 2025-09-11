@@ -9,19 +9,19 @@ import SwiftUI
 
 struct CameraView: View {
     
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color principal
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
     
     @State private var isPhotoTaken = false
     
     var body: some View {
         ZStack {
-            // Fondo
+            
             Color(UIColor.systemBackground)
                 .edgesIgnoringSafeArea(.all)
             
             HStack(spacing: 0) {
-                // Franja lateral
+                
                 Rectangle()
                     .fill(verdeOscuro)
                     .frame(width: 50)
