@@ -18,11 +18,7 @@ struct CustomTabView: View {
                 Text("Inicio")
             }
 
-<<<<<<< Updated upstream
-            Tab("Cámara", systemImage: "camera.fill") {
-=======
             NavigationStack {
->>>>>>> Stashed changes
                 CameraView()
             }
             .tabItem {
@@ -30,24 +26,6 @@ struct CustomTabView: View {
                 Text("Cámara")
             }
 
-<<<<<<< Updated upstream
-            Tab("Mensajes", systemImage: "bell.fill") {
-                AlertView()
-            }
-
-            Tab("Reportes", systemImage: "document.fill") {
-                AllReportsView()
-            }
-
-            Tab("Cuenta", systemImage: "person.crop.circle.fill") {
-                AccountView()
-            }
-        }
-        .tabViewStyle(DefaultTabViewStyle()) // Asegura que la barra esté en la parte inferior
-        .background(Color.gray.opacity(0.2)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-=======
             NavigationStack {
                 AlertView()
             }
@@ -77,20 +55,17 @@ struct CustomTabView: View {
             }
             .tabItem {
                 Image(systemName: "person.2.fill")
-                Text("Personas")
+                Text("Personas") // Ahora siempre se muestra
             }
         }
         .background(
             Color.gray.opacity(0.2)
                 .cornerRadius(10)
                 .shadow(radius: 5)
->>>>>>> Stashed changes
         )
     }
 }
 
-
 #Preview {
     CustomTabView()
 }
-

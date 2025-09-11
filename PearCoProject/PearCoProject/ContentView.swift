@@ -12,7 +12,6 @@ struct ContentView: View {
     var body: some View {
         
         CustomTabView()
-            .accentColor(verdeOscuro)
             .padding(.top, 10)
             .edgesIgnoringSafeArea(.bottom)
         }

@@ -7,32 +7,67 @@
 
 import SwiftUI
 
-// Estructura global para los estilos
-struct AppStyle {
-    // Colores globales
-    static let backgroundColor = Color(white: 0.98)  // Beige claro
-    static let cardBackgroundColor = Color.white
-    static let borderColor = Color.gray.opacity(0.2)
-    static let tabBackgroundColor = Color.gray.opacity(0.1)
-    static let accentColor = Color.green
+extension Color {
+   // static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+    static let beige = Color(hex: "#FFFFF5") // Fondo beige
+    //static let verdeBoton = Color(hex: "#269260")
+    static let verdeBoton = Color(hex: "#269260")
+}
 
-    // CardView reutilizable
-    struct CardView<Content: View>: View {
-        var content: Content
 
-        init(@ViewBuilder content: () -> Content) {
-            self.content = content()
+
+// Modificador para la franja verde lateral
+struct GreenSidebarModifier: ViewModifier {
+    let sidebarWidth: CGFloat = 75
+    let sidebarColor = Color.verdeOscuro
+
+    func body(content: Content) -> some View {
+        HStack(spacing: 0) {
+            // Franja verde
+            sidebarColor
+                .frame(width: sidebarWidth)
+            
+            // Contenido principal
+            content
+                .background(Color(hex: "#FFFFF5").edgesIgnoringSafeArea(.all))
         }
+    }
+}
 
-        var body: some View {
-            VStack {
-                content
-            }
-            .padding()
-            .background(AppStyle.cardBackgroundColor)
-            .cornerRadius(15)
-            .shadow(color: Color.gray.opacity(0.5), radius: 5, x: 0, y: 4)  // Sombra corregida aquí
-            .overlay(RoundedRectangle(cornerRadius: 15).stroke(AppStyle.borderColor, lineWidth: 1))
-        }
+extension View {
+    func greenSidebar() -> some View {
+        self.modifier(GreenSidebarModifier())
+    }
+}
+
+
+
+// Modificador para los títulos en verde
+struct GreenTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .fontWeight(.bold)
+            .foregroundColor(Color(hex: "#263C32"))
+    }
+}
+
+extension View {
+    func greenTitle() -> some View {
+        self.modifier(GreenTitle())
+    }
+}
+
+
+// Extensión para convertir HEX a Color
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        var hexColor: UInt64 = 0
+        scanner.scanHexInt64(&hexColor)
+        self.init(
+            red: Double((hexColor & 0xFF0000) >> 16) / 255,
+            green: Double((hexColor & 0x00FF00) >> 8) / 255,
+            blue: Double(hexColor & 0x0000FF) / 255
+        )
     }
 }

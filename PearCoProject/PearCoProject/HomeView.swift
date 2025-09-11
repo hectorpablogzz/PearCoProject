@@ -11,6 +11,7 @@ struct HomeView: View {
     
     let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
+    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
 
     // Datos de ejemplo
     let enfermedades = [
@@ -26,7 +27,7 @@ struct HomeView: View {
                         // Franja verde lateral
                         Rectangle()
                             .fill(verdeOscuro)
-                            .frame(width: 75)
+                            .frame(width: 50)
                         
                         // Contenido principal
                         VStack(spacing: 40) {
@@ -64,7 +65,7 @@ struct HomeView: View {
                                     .foregroundColor(.white)
                                     .padding()
                                     .frame(maxWidth: 500, maxHeight: 100)
-                                    .background(verdeOscuro)
+                                    .background(verdeBoton)
                                     .cornerRadius(15)
                             }
                             

@@ -14,13 +14,15 @@ struct AccountView: View {
     @State private var showParcela = false
     @State private var showConfig = false
     
+    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
+    
     var body: some View {
         GeometryReader { geo in
             ScrollView {
                 VStack(spacing: 20) {
                     
                     // Encabezado
-                    Text("Perfil agricultor")
+                    Text("Perfil caficultor")
                         .font(.system(size: geo.size.width * 0.06, weight: .bold))
                         .padding(.top, 40)
                     
@@ -91,7 +93,7 @@ struct AccountView: View {
                         .background(Color(.systemGray6))
                         .cornerRadius(12)
                     }
-                    .padding(.horizontal, 50)
+                    .padding(.horizontal, 60)
                     
                     Spacer()
                     
@@ -103,9 +105,9 @@ struct AccountView: View {
                             .font(.system(size: geo.size.width * 0.045, weight: .semibold))
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.verdeOscuro)
+                            .background(verdeBoton)
                             .cornerRadius(25)
-                            .padding(.horizontal, 70)
+                            .padding(.horizontal, 130)
                     }
                     .padding(.bottom, 40)
                 }
