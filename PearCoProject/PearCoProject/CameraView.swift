@@ -47,12 +47,18 @@ struct CameraView: View {
                             Image("CoffeePlant")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 650, height: 650)
+                                .frame(width: 650, height: 700)
                                 .clipped()
-                                .cornerRadius(20)
+                                .cornerRadius(45)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 45)
+                                        .stroke(.black, lineWidth: 4)
+                                )
+                                .shadow(color: .black.opacity(0.4), radius: 50, x: 5, y: 5)
                                 .overlay(Color.white.opacity(isPhotoTaken ? 0.7 : 0)
-                                    .cornerRadius(20))
-                                .animation(.easeInOut(duration: 0.3), value: isPhotoTaken)
+                                .cornerRadius(45)
+                                    )
+                                .animation(.easeInOut(duration: 0.3), value: isPhotoTaken) 
                             
                             Button(action: {
                                 withAnimation {
