@@ -3,82 +3,74 @@
 //  PearCoProject
 //
 //  Created by Héctor Pablo González on 09/09/25.
-//
 
 import SwiftUI
 import Charts
 
 struct ReportView: View {
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+    
     let report: Report
+    
     var body: some View {
-        ScrollView {
-            Text(report.title)
-                .font(.title)
-                .fontWeight(.bold)
-                .padding()
+        ZStack {
+            // Fondo
+            Color.white
+                .edgesIgnoringSafeArea(.all)
             
-            Text(report.message)
-                .padding()
-            
-            
-            
-            Text("% Riesgo de Roya")
-                .bold()
-            Chart {
-                ForEach(report.data) { item in
-                    LineMark(x: .value("Mes", item.month),
-                             y: .value("Riesgo", item.royaRisk))
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(report.title)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.verdeOscuro)
+                        .padding(.top)
+                    
+                    Text(report.message)
+                        .padding(.horizontal)
+                    
+                    // Gráficos
+                    ChartSection(title: "% Riesgo de Roya", data: report.data.map { ($0.month, Double($0.royaRisk)) }, color: .red)
+                    ChartSection(title: "% Riesgo de Broca", data: report.data.map { ($0.month, Double($0.brocaRisk)) }, color: .red)
+                    ChartSection(title: "Temperatura promedio (°C)", data: report.data.map { ($0.month, Double($0.temperature)) }, color: .blue)
+                    ChartSection(title: "Lluvia total al mes (mm)", data: report.data.map { ($0.month, Double($0.rain)) }, color: .blue)
+                    
+                    Spacer().frame(height: 150) // espacio inferior para el botón
                 }
             }
-            .frame(height: 200)
-            .padding()
-            .foregroundStyle(Color.red)
-            .chartYScale(domain: 0...100)
             
-            Text("% Riesgo de Broca")
-                .bold()
-            Chart {
-                ForEach(report.data) { item in
-                    LineMark(x: .value("Mes", item.month),
-                             y: .value("Riesgo", item.brocaRisk))
-                }
-            }
-            .frame(height: 200)
-            .padding()
-            .foregroundStyle(Color.red)
-            .chartYScale(domain: 0...100)
-            
-            Text("Temperatura promedio (°C)")
-                .bold()
-            Chart {
-                ForEach(report.data) { item in
-                    LineMark(x: .value("Mes", item.month),
-                             y: .value("Temperatura", item.temperature))
-                }
-            }
-            .frame(height: 200)
-            .padding()
-            
-            Text("Lluvia total al mes (mm)")
-                .bold()
-            Chart {
-                ForEach(report.data) { item in
-                    LineMark(x: .value("Mes", item.month),
-                             y: .value("Lluvia", item.rain))
-                }
-            }
-            .frame(height: 200)
-            .padding()
-            
-            
-            
-            
-            
-            
+            // 🔹 Botón flotante del micrófono
+            MicrophoneButton(color: verdeOscuro)
         }
-        .padding()
     }
 }
+
+// Reutilizamos sección de gráfico
+struct ChartSection: View {
+    let title: String
+    let data: [(String, Double)]
+    let color: Color
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .bold()
+                .foregroundColor(.verdeOscuro)
+                .padding(.horizontal)
+            
+            Chart {
+                ForEach(data, id: \.0) { (label, value) in
+                    LineMark(x: .value("Mes", label),
+                             y: .value("Valor", value))
+                        .foregroundStyle(color)
+                }
+            }
+            .frame(height: 200)
+            .padding(.horizontal)
+        }
+    }
+}
+
 
 #Preview {
     ReportView(report: Report(title: "Junio 2025", message: "Este mes hubo un aumento drástico en el riesgo del desarrollo de plagas y enfermedades debido al alto volumen de lluvia. El riesgo de roya subió a 90% y el riesgo de broca a 70%.", data: [

@@ -11,23 +11,29 @@ struct AlertView: View {
     
     static let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
     
-
+    static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     
     var body: some View {
-        
-        HStack(spacing: 0) {
-            GeometryReader { geo in
-                VStack(alignment: .leading) {
-                    
-                    Text("Alertas")
-                        .font(.system(size: geo.size.width * 0.06, weight: .bold))
-                        .padding()
-                    
+        ZStack {
+            // Fondo
+            Color.white
+                .edgesIgnoringSafeArea(.all)
+            
+            // Contenido principal
+            HStack(spacing: 0) {
+                GeometryReader { geo in
                     ScrollView {
                         VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
+                            Text("Alertas")
+                                .font(.system(size: 55, weight: .bold))
+                                .foregroundColor(Color.verdeOscuro)
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 20)
+                                .padding()
+                            
                             Text("Enfermedades")
                                 .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding()
+                                .padding(.horizontal)
                             
                             Alert(category: "Enfermedades",
                                   image: "AlertExample",
@@ -37,7 +43,7 @@ struct AlertView: View {
                             
                             Text("Fertilización")
                                 .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding()
+                                .padding(.horizontal)
                             
                             Alert(category: "Fertilización",
                                   image: "AlertaFertilizar",
@@ -47,7 +53,7 @@ struct AlertView: View {
                             
                             Text("Clima")
                                 .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                .padding()
+                                .padding(.horizontal)
                             
                             Alert(category: "Clima",
                                   image: "AlertaClima",
@@ -58,13 +64,18 @@ struct AlertView: View {
                             Alert(category: "Clima",
                                   image: "AlertaClima",
                                   title: "Clima propenso a enfermedades",
-                                  description: "Las condiciones actuales del clima pueden  generar enfermedades, toma precauciones",
+                                  description: "Las condiciones actuales del clima pueden generar enfermedades, toma precauciones",
                                   geo: geo)
+                            
+                            Spacer().frame(height: 150) // espacio para el botón flotante
                         }
+                        .frame(width: geo.size.width)
                     }
                 }
-                .frame(width: geo.size.width, height: geo.size.height)
             }
+            
+            
+            MicrophoneButton(color: AlertView.verdeOscuro)
         }
     }
 }
@@ -73,6 +84,9 @@ struct AlertView: View {
     AlertView()
 }
 
+// ------------------
+// Estructura Alert
+// ------------------
 struct Alert: View {
     @State private var isCompleted = false
     let category: String
@@ -82,12 +96,10 @@ struct Alert: View {
     let geo: GeometryProxy
     
     var buttonColor: Color {
-        category == "Enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255) // RGB 59, 150, 108
+        category == "Enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255)
     }
     
     var body: some View {
-        
-        
         VStack {
             HStack {
                 Spacer()

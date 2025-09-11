@@ -7,37 +7,53 @@
 
 import SwiftUI
 
+extension Color {
+    
+
+    static let verdeClaro = Color(red: 59/255, green: 150/255, blue: 108/255)
+    static let grisFondo = Color(red: 245/255, green: 245/255, blue: 245/255)
+}
+
 struct FarmersView: View {
     var body: some View {
         GeometryReader { geo in
-            VStack(alignment: .leading) {
+            ZStack {
+                // Fondo de la página
+                Color.grisFondo
+                    .edgesIgnoringSafeArea(.all)
                 
-                Text("Agricultores")
-                    .font(.system(size: geo.size.width * 0.06, weight: .bold))
-                    .padding()
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
-                        Farmer(imageSystemName: "person.crop.circle.fill",
-                               name: "Juan Perez",
-                               description: "Encargado parcela 2",
-                               geo: geo)
-                        
-                        Farmer(imageSystemName: "person.crop.circle.fill",
-                               name: "María Lopez",
-                               description: "Responsable riego de cultivos",
-                               geo: geo)
-                        
-                        Farmer(imageSystemName: "person.crop.circle.fill",
-                               name: "Carlos Sanchéz",
-                               description: "Encargado parcela 3",
-                               geo: geo)
+                VStack(alignment: .leading) {
+                    Text("Agricultores")
+                        .font(.system(size: geo.size.width * 0.07, weight: .bold))
+                        .padding(.horizontal)
+                        .padding(.top, 20)
+                        .foregroundColor(Color.verdeOscuro)
+                    
+                    ScrollView {
+                        VStack(spacing: geo.size.height * 0.025) {
+                            Farmer(imageSystemName: "person.crop.circle.fill",
+                                   name: "Juan Perez",
+                                   description: "Encargado parcela 2",
+                                   geo: geo)
+                            
+                            Farmer(imageSystemName: "person.crop.circle.fill",
+                                   name: "María Lopez",
+                                   description: "Responsable riego de cultivos",
+                                   geo: geo)
+                            
+                            Farmer(imageSystemName: "person.crop.circle.fill",
+                                   name: "Carlos Sanchéz",
+                                   description: "Encargado parcela 3",
+                                   geo: geo)
+                        }
+                        .padding(.horizontal, geo.size.width * 0.05)
+                        .padding(.bottom, geo.size.height * 0.12) // espacio para el botón flotante
                     }
-                    .padding(.horizontal, geo.size.width * 0.05)
-                    .padding(.bottom, geo.size.height * 0.03)
                 }
+                
+                // Botón flotante estilo Siri
+                MicrophoneButton(color: Color.verdeOscuro)
             }
-            .frame(width: geo.size.width, height: geo.size.height)
         }
     }
 }
@@ -49,17 +65,21 @@ struct Farmer: View {
     let geo: GeometryProxy
     
     var body: some View {
-        HStack(spacing: geo.size.width * 0.03) {
+        HStack(spacing: geo.size.width * 0.04) {
             Image(systemName: imageSystemName)
                 .resizable()
-                .frame(width: geo.size.width * 0.12, height: geo.size.width * 0.12)
+                .frame(width: geo.size.width * 0.14, height: geo.size.width * 0.14)
                 .foregroundColor(.verdeOscuro)
+                .background(Color.white)
+                .clipShape(Circle())
+                .shadow(color: .black.opacity(0.1), radius: geo.size.width * 0.01, x: 0, y: geo.size.height * 0.002)
             
-            VStack(alignment: .leading, spacing: geo.size.height * 0.005) {
+            VStack(alignment: .leading, spacing: geo.size.height * 0.003) {
                 Text(name)
-                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
+                    .font(.system(size: geo.size.width * 0.045, weight: .semibold))
+                    .foregroundColor(.verdeOscuro)
                 Text(description)
-                    .font(.system(size: geo.size.width * 0.03))
+                    .font(.system(size: geo.size.width * 0.035))
                     .foregroundColor(.secondary)
             }
             
@@ -68,20 +88,20 @@ struct Farmer: View {
             NavigationLink {
                 AccountView()
             } label: {
-                Image(systemName: "pencil")
-                    .font(.system(size: geo.size.width * 0.06))
-                    .foregroundColor(.verdeOscuro)
+                Image(systemName: "pencil.circle.fill")
+                    .font(.system(size: geo.size.width * 0.065))
+                    .foregroundColor(.verdeClaro)
             }
         }
-        .padding(.all, geo.size.width * 0.03)
-        .background(Color(.systemBackground))
-        .cornerRadius(geo.size.width * 0.04)
-        .shadow(color: .black.opacity(0.1), radius: geo.size.width * 0.015, x: 0, y: geo.size.height * 0.005)
+        .padding(geo.size.width * 0.04)
+        .background(Color.white)
+        .cornerRadius(15)
+        .shadow(color: .black.opacity(0.08), radius: geo.size.width * 0.01, x: 0, y: geo.size.height * 0.003)
     }
 }
 
 #Preview {
-    NavigationStack { // <-- Aquí envolvemos la vista para probarla
+    NavigationStack {
         FarmersView()
     }
 }

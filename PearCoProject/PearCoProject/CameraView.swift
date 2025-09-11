@@ -7,97 +7,76 @@
 
 import SwiftUI
 
-
-
 struct CameraView: View {
     
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color de tu app
+    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255) // Color principal
     let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
-    @State private var isPhotoTaken = false
-
-    var body: some View {
-        ZStack {
-
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     
-    @State private var micPosition: CGPoint = CGPoint(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height - 150)
-    @State private var showMicrophoneView = false
+    @State private var isPhotoTaken = false
     
     var body: some View {
         ZStack {
             // Fondo
             Color(UIColor.systemBackground)
                 .edgesIgnoringSafeArea(.all)
-
             
             HStack(spacing: 0) {
                 // Franja lateral
                 Rectangle()
-
-                    .fill(Color.verdeOscuro)
-                    .frame(width: 50) // Franja más delgada
+                    .fill(verdeOscuro)
+                    .frame(width: 50)
+                    .edgesIgnoringSafeArea(.all)
                 
                 // Contenido principal
-                VStack(spacing: 50) {
-                    VStack(spacing: 20) {
+                ScrollView {
+                    VStack(spacing: 30) {
+                        
                         // Título
-                        Text("Diagnóstico por foto")
-                            .font(.system(size: 55))
-                            .greenTitle()
-                            .frame(maxWidth: .infinity, alignment: .leading) //
+                        Text("Diagnóstico por Foto")
+                            .font(.system(size: 50, weight: .bold))
+                            .foregroundColor(verdeOscuro)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Text("Centre la planta en la cámara para continuar")
-                            .font(.title)
-                            .fontWeight(.semibold)
+                            .font(.title2)
                             .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading) //
-                    }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        // Imagen con botón circular encima
+                        // Imagen con overlay al tomar foto y botón de cámara
                         ZStack {
-                            Image("CoffeePlant") // Asegúrate de tener la imagen
+                            Image("CoffeePlant")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 650, height: 700)
+                                .frame(width: 650, height: 650)
                                 .clipped()
-                                .cornerRadius(45) // Redondea las esquinas
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 45) // Borde redondeado
-                                        .stroke(.black, lineWidth: 4) // Borde negro con 4 de grosor
-                                        )
-                                .shadow(color: .black.opacity(0.4), radius: 50, x: 5, y: 5) // Sombra alrededor de la imagen
-                                .overlay(Color.white.opacity(isPhotoTaken ? 0.7 : 0) // Aparece blanco cuando la foto se toma
-                                .cornerRadius(45) // Asegura que el overlay sea redondeado
-                                    )
-                                .animation(.easeInOut(duration: 0.3), value: isPhotoTaken) // Animación con el estado de la foto
+                                .cornerRadius(20)
+                                .overlay(Color.white.opacity(isPhotoTaken ? 0.7 : 0)
+                                    .cornerRadius(20))
+                                .animation(.easeInOut(duration: 0.3), value: isPhotoTaken)
                             
-                            // Botón circular de cámara
                             Button(action: {
                                 withAnimation {
-                                    isPhotoTaken = true }
-                                print("Ir a cámara")
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Espera 2 segundos
+                                    isPhotoTaken = true
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     withAnimation {
-                                        isPhotoTaken = false // Revertir el estado
+                                        isPhotoTaken = false
                                     }
                                 }
                             }) {
                                 Image(systemName: "camera")
-                                    .font(.system(size: 80)) // icono más grande
+                                    .font(.system(size: 40))
                                     .foregroundColor(.white)
                                     .padding(30)
-                                    .background(Color.black.opacity(0.3)) // Círculo gris opaco
+                                    .background(Color.black.opacity(0.3))
                                     .clipShape(Circle())
                             }
                         }
                         
                         // Botón "Tomar foto"
-                        Button(action: {
-                            print("Tomar foto")
-                        }) {
+                        Button(action: { print("Tomar foto") }) {
                             Text("Tomar foto")
-                                .font(.largeTitle)
+                                .font(.title)
                                 .foregroundColor(.white)
                                 .padding()
                                 .frame(maxWidth: 400)
@@ -105,69 +84,17 @@ struct CameraView: View {
                                 .cornerRadius(20)
                         }
                         
-                        
-                        Spacer()
-                        
-
-                    .fill(verdeOscuro)
-                    .frame(width: 80)
-                
-                // Contenido
-                VStack(spacing: 30) {
-                    Text("Diagnóstico por foto")
-                        .font(.system(size: 40, weight: .bold))
-                        .foregroundColor(verdeOscuro)
-                    
-                    Text("Centre la planta en la cámara para continuar")
-                        .font(.title2)
-                        .foregroundColor(.black)
-                    
-                    ZStack {
-                        Image("CoffeePlant")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 650, height: 650)
-                            .clipped()
-                            .cornerRadius(20)
-                        
-                        Button(action: {
-                            print("Ir a cámara")
-                        }) {
-                            Image(systemName: "camera")
-                                .font(.system(size: 30))
-                                .foregroundColor(.white)
-                                .padding(30)
-                                .background(verdeOscuro)
-                                .clipShape(Circle())
-                        }
+                        Spacer().frame(height: 150) // espacio para micrófono
                     }
-                    
-                    Button(action: {
-                        print("Tomar foto")
-                    }) {
-                        Text("Tomar foto")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(maxWidth: 400)
-                            .background(verdeOscuro)
-                            .cornerRadius(15)
-                    }
-                    
-                    Spacer().frame(height: 150) // espacio para el micrófono flotante
-                    
-                
-
+                    .padding(50)
                 }
-                .padding(80)
             }
             
-           
+            
+            MicrophoneButton(color: verdeOscuro)
         }
-    
     }
 }
-
 
 #Preview {
     CameraView()
