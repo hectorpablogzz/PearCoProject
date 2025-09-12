@@ -8,8 +8,7 @@ import SwiftUI
 import Charts
 
 struct ReportView: View {
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
-    
+  
     let report: Report
     
     var body: some View {
@@ -41,7 +40,7 @@ struct ReportView: View {
             }
             
             // 🔹 Botón flotante del micrófono
-            MicrophoneButton(color: verdeOscuro)
+            MicrophoneButton(color: Color.verdeOscuro)
         }
     }
 }

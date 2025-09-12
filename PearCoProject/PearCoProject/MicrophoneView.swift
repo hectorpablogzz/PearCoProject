@@ -10,10 +10,7 @@ import SwiftUI
 struct MicrophoneView: View {
     @State private var animate = false
     
-    // Project colors
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
-    let verdeClaro = Color(red: 59/255, green: 150/255, blue: 108/255)
-    
+
     var body: some View {
         ZStack {
             // Gradient background
@@ -32,7 +29,7 @@ struct MicrophoneView: View {
                         WaveShape(amplitude: CGFloat(10 + i*5), frequency: CGFloat(1 + Double(i)*0.2), phase: animate ? .pi*2 : 0)
                             .stroke(
                                 LinearGradient(
-                                    colors: [verdeClaro.opacity(0.6 - Double(i)*0.1), verdeOscuro.opacity(0.3 - Double(i)*0.05)],
+                                    colors: [Color.verdeClaro.opacity(0.6 - Double(i)*0.1), Color.verdeOscuro.opacity(0.3 - Double(i)*0.05)],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 ),
@@ -51,14 +48,14 @@ struct MicrophoneView: View {
                     Circle()
                         .fill(
                             RadialGradient(
-                                gradient: Gradient(colors: [verdeOscuro, verdeClaro]),
+                                gradient: Gradient(colors: [Color.verdeOscuro, Color.verdeClaro]),
                                 center: .center,
                                 startRadius: 5,
                                 endRadius: 50
                             )
                         )
                         .frame(width: 90, height: 90)
-                        .shadow(color: verdeClaro.opacity(0.6), radius: 20, x: 0, y: 0)
+                        .shadow(color: Color.verdeClaro.opacity(0.6), radius: 20, x: 0, y: 0)
                         .overlay(
                             Image(systemName: "mic.fill")
                                 .font(.system(size: 36))

@@ -6,25 +6,14 @@
 //
 import SwiftUI
 
-extension Color {
-    static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
-}
 
 struct AccountView: View {
     @State private var showParcela = false
     @State private var showConfig = false
     
-    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
-    
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     
     var body: some View {
         HStack (spacing:0){
-            
-            Rectangle()
-                .fill(verdeOscuro)
-                .frame(width: 50)
-                .edgesIgnoringSafeArea(.all)
             
             GeometryReader { geo in
                 
@@ -82,17 +71,17 @@ struct AccountView: View {
                                 DisclosureGroup(isExpanded: $showConfig) {
                                     VStack(alignment: .leading, spacing: 12) {
                                         Button("Notificaciones") { }
-                                            .foregroundColor(.verdeOscuro)
+                                            .foregroundColor(Color.verdeOscuro)
                                             .font(.system(size: geo.size.width * 0.045))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
                                         Button("Preferencias") { }
-                                            .foregroundColor(.verdeOscuro)
+                                            .foregroundColor(Color.verdeOscuro)
                                             .font(.system(size: geo.size.width * 0.045))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
                                         Button("Soporte") { }
-                                            .foregroundColor(.verdeOscuro)
+                                            .foregroundColor(Color.verdeOscuro)
                                             .font(.system(size: geo.size.width * 0.045))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
@@ -119,7 +108,7 @@ struct AccountView: View {
                                     .font(.system(size: geo.size.width * 0.045, weight: .semibold))
                                     .frame(maxWidth: .infinity)
                                     .padding()
-                                    .background(verdeBoton)
+                                    .background(Color.verdeBoton)
                                     .cornerRadius(25)
                                     .padding(.horizontal, 130)
                             }
@@ -130,10 +119,11 @@ struct AccountView: View {
                     .background(Color.white)
                     
                     // Botón flotante
-                    MicrophoneButton(color: .verdeOscuro)
+                    MicrophoneButton(color: Color.verdeOscuro)
                 }
             }
         }
+        .greenSidebar()
     }
 }
 

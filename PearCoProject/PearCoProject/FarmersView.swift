@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-extension Color {
-    
-
-    static let verdeClaro = Color(red: 59/255, green: 150/255, blue: 108/255)
-    static let grisFondo = Color(red: 245/255, green: 245/255, blue: 245/255)
-}
-
 struct FarmersView: View {
     var body: some View {
         GeometryReader { geo in

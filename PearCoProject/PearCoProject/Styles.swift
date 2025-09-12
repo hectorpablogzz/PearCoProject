@@ -7,18 +7,22 @@
 
 import SwiftUI
 
+
 extension Color {
-   // static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
-    static let beige = Color(hex: "#FFFFF5") // Fondo beige
-    //static let verdeBoton = Color(hex: "#269260")
-    static let verdeBoton = Color(hex: "#269260")
+    static let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+    static let beige = Color(red: 255/255, green: 255/255, blue: 245/255) // Fondo beige
+    static let verdeBoton = Color(red: 45/255, green: 116/255, blue: 84/255)
+    static let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
+    static let verdeClaro = Color(red: 59/255, green: 150/255, blue: 108/255)
+    static let grisFondo = Color(red: 245/255, green: 245/255, blue: 245/255)
+    static let verdeTitulos = Color(red: 28/255, green: 53/255, blue: 41/255)
 }
 
 
 
 // Modificador para la franja verde lateral
 struct GreenSidebarModifier: ViewModifier {
-    let sidebarWidth: CGFloat = 75
+    let sidebarWidth: CGFloat = 40
     let sidebarColor = Color.verdeOscuro
 
     func body(content: Content) -> some View {
@@ -26,10 +30,11 @@ struct GreenSidebarModifier: ViewModifier {
             // Franja verde
             sidebarColor
                 .frame(width: sidebarWidth)
+                .edgesIgnoringSafeArea(.vertical)
             
             // Contenido principal
-            content
-                .background(Color(hex: "#FFFFF5").edgesIgnoringSafeArea(.all))
+           // content
+               // .background(Color.beige.edgesIgnoringSafeArea(.all))
         }
     }
 }
@@ -47,7 +52,7 @@ struct GreenTitle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .fontWeight(.bold)
-            .foregroundColor(Color(hex: "#263C32"))
+            .foregroundColor(Color.verdeTitulos)
     }
 }
 
@@ -58,16 +63,4 @@ extension View {
 }
 
 
-// Extensión para convertir HEX a Color
-extension Color {
-    init(hex: String) {
-        let scanner = Scanner(string: hex)
-        var hexColor: UInt64 = 0
-        scanner.scanHexInt64(&hexColor)
-        self.init(
-            red: Double((hexColor & 0xFF0000) >> 16) / 255,
-            green: Double((hexColor & 0x00FF00) >> 8) / 255,
-            blue: Double(hexColor & 0x0000FF) / 255
-        )
-    }
-}
+

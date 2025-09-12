@@ -9,17 +9,8 @@ import SwiftUI
 
 struct AlertView: View {
     
-    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
-    
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
-    
     var body: some View {
-        HStack {
-            // Franja verde lateral
-            Rectangle()
-                .fill(verdeOscuro)
-                .frame(width: 50)
-                .ignoresSafeArea(.all)
+        HStack (spacing: 0) {
             
             ZStack {
                 // Fondo
@@ -33,7 +24,7 @@ struct AlertView: View {
                             VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
                                 Text("Alertas")
                                     .font(.system(size: 55, weight: .bold))
-                                    .foregroundColor(verdeOscuro)
+                                    .foregroundColor(Color.verdeOscuro)
                                     .frame(maxWidth: .infinity)
                                     .padding(.top, 20)
                                     .padding()
@@ -82,9 +73,10 @@ struct AlertView: View {
                 }
                 
                 
-                MicrophoneButton(color: verdeOscuro)
+                MicrophoneButton(color: Color.verdeOscuro)
             }
         }
+        .greenSidebar()
     }
 }
 

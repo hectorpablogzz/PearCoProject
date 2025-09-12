@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AllReportsView: View {
-    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
-    
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
+
     
     @State private var VM = AllReportsViewModel()
     
@@ -64,7 +62,7 @@ struct AllReportsView: View {
                         }
                     }
                 }
-                MicrophoneButton(color: verdeOscuro)
+                MicrophoneButton(color: Color.verdeOscuro)
             }
             
         

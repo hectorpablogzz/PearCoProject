@@ -8,9 +8,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    let verdeOscuro = Color(red: 32/255, green: 75/255, blue: 54/255)
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
-    let verdeBoton = Color(red: 59/255, green: 150/255, blue: 108/255)
 
     // Datos de ejemplo
     let enfermedades = [
@@ -24,18 +22,12 @@ struct HomeView: View {
         NavigationStack {
             ZStack {
                 HStack(spacing: 0) {
-                    // Franja verde lateral
-                    Rectangle()
-                        .fill(verdeOscuro)
-                        .frame(width: 50)
-                        .ignoresSafeArea(.all)
-                    
                     // Contenido principal
                     VStack(spacing: 40) {
                         // Título
                         Text("Menú Principal")
                             .font(.system(size: 40, weight: .bold))
-                            .foregroundColor(verdeOscuro)
+                            .foregroundColor(Color.verdeOscuro)
                         
                         Text("Toma una foto de la planta para analizar su salud")
                             .font(.title2)
@@ -54,7 +46,7 @@ struct HomeView: View {
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                                     .padding(30)
-                                    .background(verdeOscuro)
+                                    .background(Color.verdeOscuro)
                                     .clipShape(Circle())
                             }
                         }
@@ -65,7 +57,7 @@ struct HomeView: View {
                                 .foregroundColor(.white)
                                 .padding()
                                 .frame(maxWidth: 500, maxHeight: 100)
-                                .background(verdeBoton)
+                                .background(Color.verdeBoton)
                                 .cornerRadius(15)
                         }
                         
@@ -74,13 +66,13 @@ struct HomeView: View {
                             Text("Probabilidad de Enfermedades")
                                 .font(.title2)
                                 .fontWeight(.bold)
-                                .foregroundColor(verdeOscuro)
+                                .foregroundColor(Color.verdeOscuro)
                             
                             HStack(alignment: .bottom, spacing: 50) {
                                 ForEach(enfermedades, id: \.0) { (nombre, valor) in
                                     VStack {
                                         Rectangle()
-                                            .fill(sageGreen)
+                                            .fill(Color.sageGreen)
                                             .frame(width: 60, height: CGFloat(valor) * 200)
                                             .cornerRadius(6)
                                         
@@ -100,8 +92,9 @@ struct HomeView: View {
                 }
                 
                 
-                MicrophoneButton(color: verdeOscuro)
+                MicrophoneButton(color: Color.verdeOscuro)
             }
+            .greenSidebar()
         }
     }
 }
