@@ -33,8 +33,9 @@ struct GreenSidebarModifier: ViewModifier {
                 .edgesIgnoringSafeArea(.vertical)
             
             // Contenido principal
-           // content
+           content
                // .background(Color.beige.edgesIgnoringSafeArea(.all))
+                
         }
     }
 }
