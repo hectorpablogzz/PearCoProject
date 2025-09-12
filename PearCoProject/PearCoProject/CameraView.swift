@@ -36,7 +36,7 @@ struct CameraView: View {
                                 .foregroundColor(.black)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            // Imagen con overlay al tomar foto y botón de cámara
+                            // Imagen y botón de cámara
                             ZStack {
                                 Image("CoffeePlant")
                                     .resizable()
@@ -73,7 +73,7 @@ struct CameraView: View {
                                 }
                             }
                             
-                            // Botón "Tomar foto"
+                            // Botón Tomar foto
                             Button(action: { print("Tomar foto") }) {
                                 Text("Tomar foto")
                                     .font(.title)
