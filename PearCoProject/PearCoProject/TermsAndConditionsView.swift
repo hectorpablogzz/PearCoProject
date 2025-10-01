@@ -13,7 +13,6 @@ struct TermsAndConditionsView: View {
     var onAccept: () -> Void
 
     @State private var checked = false
-    @State private var atBottom = false
 
     var body: some View {
         ZStack {
@@ -40,18 +39,9 @@ struct TermsAndConditionsView: View {
                     .background(
                         GeometryReader { geo in
                             Color.clear
-                                .preference(key: _ContentSizeKey.self, value: geo.size.height)
                         }
                     )
                 }
-                .modifier(_BottomReachedSimple(atBottom: $atBottom))
-                .overlay(alignment: .bottomTrailing) {
-                    Text(atBottom ? "Listo" : "Desliza y lee todo para poder aceptar ⬇️")
-                        .font(.caption2).foregroundStyle(.secondary)
-                        .padding(.trailing, 10)
-                        .padding(.bottom, 8)
-                }
-
                 Divider()
 
                 // Controles
@@ -70,7 +60,7 @@ struct TermsAndConditionsView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(accent)
-                    .disabled(!(checked && atBottom))
+                    .disabled(!(checked))
                 }
                 .padding(16)
             }
@@ -140,57 +130,6 @@ private struct TermsBodyText: View {
             Text("Si tiene preguntas sobre estos Términos o sobre el uso de sus datos, puede contactarnos en:") +
             Text("📧 Correo electrónico: [correo@ejemplo.com]") +
             Text("📍 Dirección: [Dirección de la empresa o responsable]")
-        }
-    }
-}
-
-// === utilería mínima para detectar “llegué al fondo” ===
-
-private struct _ContentSizeKey: PreferenceKey {
-    static var defaultValue: CGFloat = .zero
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
-}
-
-// Considera que llegó al fondo si desplazamiento + alto visible >= alto del contenido - tolerancia
-private struct _BottomReachedSimple: ViewModifier {
-    @Binding var atBottom: Bool
-    var tolerance: CGFloat = 24
-
-    @State private var contentHeight: CGFloat = 0
-
-    func body(content: Content) -> some View {
-        GeometryReader { outer in
-            content
-                .onPreferenceChange(_ContentSizeKey.self) { contentHeight = $0 }
-                .background(
-                    _ScrollOffsetReader { y, visibleH in
-                        let reached = (-y + visibleH) >= (contentHeight - tolerance)
-                        if reached != atBottom { atBottom = reached }
-                    }
-                )
-        }
-    }
-}
-
-private struct _ScrollOffsetReader: UIViewRepresentable {
-    let onChange: (_ offsetY: CGFloat, _ visibleHeight: CGFloat) -> Void
-
-    func makeUIView(context: Context) -> UIScrollView {
-        let sv = UIScrollView()
-        sv.delegate = context.coordinator
-        return sv
-    }
-    func updateUIView(_ uiView: UIScrollView, context: Context) {}
-    func makeCoordinator() -> Coordinator { Coordinator(onChange) }
-
-    final class Coordinator: NSObject, UIScrollViewDelegate {
-        let onChange: (_ y: CGFloat, _ h: CGFloat) -> Void
-        init(_ onChange: @escaping (_ y: CGFloat, _ h: CGFloat) -> Void) { self.onChange = onChange }
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            onChange(scrollView.contentOffset.y, scrollView.bounds.height)
-        }
-        func scrollViewDidLayoutSubviews(_ scrollView: UIScrollView) {
-            onChange(scrollView.contentOffset.y, scrollView.bounds.height)
         }
     }
 }
