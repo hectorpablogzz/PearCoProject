@@ -74,11 +74,16 @@ struct ChartSection: View {
 
 #Preview {
     ReportView(report: Report(title: "Junio 2025", message: "Este mes hubo un aumento drástico en el riesgo del desarrollo de plagas y enfermedades debido al alto volumen de lluvia. El riesgo de roya subió a 90% y el riesgo de broca a 70%.", data: [
-        .init(year: 2025, month: "Jan", temperature: 16.338, rain: 33.8, royaRisk: 10, brocaRisk: 15),
-        .init(year: 2025, month: "Feb", temperature: 18.107, rain: 57.4, royaRisk: 20, brocaRisk: 30),
-        .init(year: 2025, month: "Mar", temperature: 19.072, rain: 25.4, royaRisk: 15, brocaRisk: 20),
-        .init(year: 2025, month: "Apr", temperature: 21.133, rain: 50, royaRisk: 35, brocaRisk: 40),
-        .init(year: 2025, month: "May", temperature: 23.538, rain: 78.8, royaRisk: 50, brocaRisk: 60),
-        .init(year: 2025, month: "Jun", temperature: 22.883, rain: 179.8, royaRisk: 90, brocaRisk: 70)
+        .init(year: 2025, month: "Jan", temperature: 16.338, rain: 33.8, royaRisk: 10, brocaRisk: 15, ojoRisk: 51, antracRisk: 52),
+        .init(year: 2025, month: "Feb", temperature: 18.107, rain: 57.4, royaRisk: 20, brocaRisk: 30, ojoRisk: 27, antracRisk: 85),
+        .init(year: 2025, month: "Mar", temperature: 19.072, rain: 25.4, royaRisk: 15, brocaRisk: 20, ojoRisk: 52, antracRisk: 28),
+        .init(year: 2025, month: "Apr", temperature: 21.133, rain: 50, royaRisk: 35, brocaRisk: 40, ojoRisk: 16, antracRisk: 77),
+        .init(year: 2025, month: "May", temperature: 23.538, rain: 78.8, royaRisk: 50, brocaRisk: 60, ojoRisk: 9, antracRisk: 88),
+        .init(year: 2025, month: "Jun", temperature: 22.883, rain: 179.8, royaRisk: 90, brocaRisk: 70, ojoRisk: 77, antracRisk: 63)
     ]))
 }
+
+               
+                
+                
+

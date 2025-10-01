@@ -12,10 +12,10 @@ struct WeatherData: Identifiable, Decodable {
     var month: String
     var temperature: Double
     var rain: Double
-    var royaRisk: Double?
-    var brocaRisk: Double?
-    var ojoGalloRisk: Double?
-    var antracnosisRisk: Double?
+    var royaRisk: Double
+    var brocaRisk: Double
+    var ojoRisk: Double
+    var antracRisk: Double
     var id = UUID()
     
     enum CodingKeys: String, CodingKey {
@@ -25,6 +25,8 @@ struct WeatherData: Identifiable, Decodable {
         case rain
         case royaRisk
         case brocaRisk
+        case ojoRisk
+        case antracRisk
     }
 }
 

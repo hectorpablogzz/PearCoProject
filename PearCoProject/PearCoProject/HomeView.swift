@@ -7,16 +7,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var vm = SummaryViewModel()
     
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
-
-    // Datos de ejemplo
-    let enfermedades = [
-        ("Broca", 0.75),
-        ("Roya", 0.45),
-        ("Ojo de gallo", 0.60),
-        ("Antracnosis", 0.30)
-    ]
     
     var body: some View {
         NavigationStack {
@@ -61,6 +54,7 @@ struct HomeView: View {
                                 .cornerRadius(15)
                         }
                         
+                        
                         // Gráfica
                         VStack(spacing: 50) {
                             Text("Probabilidad de Enfermedades")
@@ -69,7 +63,7 @@ struct HomeView: View {
                                 .foregroundColor(Color.verdeOscuro)
                             
                             HStack(alignment: .bottom, spacing: 50) {
-                                ForEach(enfermedades, id: \.0) { (nombre, valor) in
+                                ForEach(vm.barrasUltimo, id: \.0) { (nombre, valor) in
                                     VStack {
                                         Rectangle()
                                             .fill(Color.sageGreen)
@@ -95,6 +89,8 @@ struct HomeView: View {
                 MicrophoneButton(color: Color.verdeOscuro)
             }
             .greenSidebar()
+            .task {await vm.fetch()}
+            .refreshable {await vm.fetch()}
         }
     }
 }
