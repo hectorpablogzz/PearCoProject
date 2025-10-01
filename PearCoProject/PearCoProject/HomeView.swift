@@ -8,6 +8,8 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var vm = SummaryViewModel()
+    @AppStorage("hasAcceptedTerms") private var hasAcceptedTerms = false
+    @State private var showTerms = false
     
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
     
@@ -54,7 +56,6 @@ struct HomeView: View {
                                 .cornerRadius(15)
                         }
                         
-                        
                         // Gráfica
                         VStack(spacing: 50) {
                             Text("Probabilidad de Enfermedades")
@@ -66,7 +67,7 @@ struct HomeView: View {
                                 ForEach(vm.barrasUltimo, id: \.0) { (nombre, valor) in
                                     VStack {
                                         Rectangle()
-                                            .fill(Color.sageGreen)
+                                            .fill(sageGreen)
                                             .frame(width: 60, height: CGFloat(valor) * 200)
                                             .cornerRadius(6)
                                         
@@ -84,13 +85,27 @@ struct HomeView: View {
                     }
                     .padding(50)
                 }
-                
-                
+
                 MicrophoneButton(color: Color.verdeOscuro)
+                
+                // Mostrar TermsAndConditionsView como overlay si no se han aceptado
+                if showTerms {
+                    TermsAndConditionsView {
+                        hasAcceptedTerms = true
+                        showTerms = false
+                    }
+                    .transition(.opacity)
+                    .zIndex(1)
+                }
             }
             .greenSidebar()
-            .task {await vm.fetch()}
-            .refreshable {await vm.fetch()}
+            .task { await vm.fetch() }
+            .refreshable { await vm.fetch() }
+            .onAppear {
+                if !hasAcceptedTerms {
+                    showTerms = true
+                }
+            }
         }
     }
 }
@@ -98,3 +113,4 @@ struct HomeView: View {
 #Preview {
     HomeView()
 }
+

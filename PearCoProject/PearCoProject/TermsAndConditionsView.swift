@@ -19,8 +19,7 @@ struct TermsAndConditionsView: View {
         ZStack {
             // Fondo oscurecido
             Color.black.opacity(0.45).ignoresSafeArea()
-
-            // Tarjeta centrada (más pequeña para que se vea Home atrás)
+            // Tarjeta centrada
             VStack(spacing: 0) {
                 // Header
                 HStack {
@@ -35,8 +34,7 @@ struct TermsAndConditionsView: View {
                 // Contenido con detección de "llegué al final"
                 ScrollView {
                     VStack(alignment: .leading, spacing: 10) {
-                        TermsBodyText() // <-- pon aquí tu texto real
-                        // (no hace falta id de ancla con este detector)
+                        TermsBodyText()
                     }
                     .padding(16)
                     .background(
@@ -48,7 +46,7 @@ struct TermsAndConditionsView: View {
                 }
                 .modifier(_BottomReachedSimple(atBottom: $atBottom))
                 .overlay(alignment: .bottomTrailing) {
-                    Text(atBottom ? "Listo ✅" : "Desliza hasta el final ⬇️")
+                    Text(atBottom ? "Listo" : "Desliza y lee todo para poder aceptar ⬇️")
                         .font(.caption2).foregroundStyle(.secondary)
                         .padding(.trailing, 10)
                         .padding(.bottom, 8)
@@ -78,7 +76,6 @@ struct TermsAndConditionsView: View {
             }
             .frame(maxWidth: 560, maxHeight: 520)
             .background(
-                // OJO: Material directo (no uses Color.ultraThinMaterial)
                 .ultraThinMaterial,
                 in: RoundedRectangle(cornerRadius: 20, style: .continuous)
             )
@@ -88,29 +85,61 @@ struct TermsAndConditionsView: View {
     }
 }
 
-// Texto demo para forzar scroll (reemplaza por tus T&C)
 private struct TermsBodyText: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("1) Aceptación").font(.headline)
-            Text("Al usar la app aceptas estos términos...")
+            Text("TÉRMINOS Y CONDICIONES DE USO").font(.headline)
+            Text("Por favor, lea atentamente estos Términos y Condiciones antes de utilizar la aplicación CafeCare. Al acceder o utilizar la aplicación, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguno de estos términos, le recomendamos no utilizar la aplicación.")
 
-            Text("2) Uso permitido").font(.headline)
-            Text("Esta app apoya decisiones agronómicas; úsala de forma responsable...")
+            Text("1. OBJETO DE LA APLICACIÓN").font(.headline)
+            Text("La aplicación proporciona información sobre parcelas agrícolas, datos climáticos, condiciones del terreno y una estimación de la probabilidad de aparición de ciertas enfermedades en cultivos, basada en modelos estadísticos y fuentes de datos disponibles. IMPORTANTE: La información provista es únicamente referencial e informativa. No constituye una confirmación ni diagnóstico definitivo sobre la presencia de enfermedades agrícolas. El usuario debe consultar con expertos o autoridades competentes antes de tomar decisiones agrícolas o sanitarias basadas en la información de la aplicación.")
 
-            Text("3) Datos y privacidad").font(.headline)
-            Text("Procesamos datos de clima y cultivo para estimar riesgos...")
+            Text("2. REGISTRO Y USO DE DATOS PERSONALES").font(.headline)
+            Text("Para utilizar la Aplicación, es posible que se le solicite proporcionar cierta información personal, incluyendo:") +
+            Text("Correo electrónico") +
+            Text("Contraseña") +
+            Text("Datos sobre sus parcelas (ubicación, tipo de cultivo, historial, etc.)") +
+            Text("Al registrarse, usted declara que la información proporcionada es veraz, completa y actualizada. También acepta que nosotros almacenemos y procesemos estos datos conforme a nuestra [Política de Privacidad].") +
+            Text("2.1 Uso de Datos") +
+            Text("Los datos recopilados se utilizarán para:") +
+            Text("Brindar las funcionalidades principales de la Aplicación") +
+            Text("Mejorar la calidad del servicio y personalizar la experiencia del usuario") +
+            Text("Desarrollar modelos predictivos y analíticos (de forma agregada y anonimizada)") +
+            Text("Contactarle con información relevante sobre el servicio") +
+            Text("No compartimos datos personales identificables con terceros sin su consentimiento, salvo en los casos exigidos por ley.")
 
-            Text("4) Limitación de responsabilidad").font(.headline)
-            Text("Las estimaciones no garantizan resultados; verifica en campo...")
+            Text("3. LIMITACIÓN DE RESPONSABILIDAD").font(.headline)
+            Text("Usted comprende y acepta que:") +
+            Text("La información proporcionada por la Aplicación es una estimación basada en datos y modelos probabilísticos, y puede contener errores, omisiones o inexactitudes.") +
+            Text("No garantizamos ni afirmamos la presencia o ausencia de enfermedades en cultivos.") +
+            Text("El uso de esta información es bajo su propia responsabilidad. No nos hacemos responsables de decisiones agrícolas, económicas o sanitarias tomadas en base a la Aplicación.") +
+            Text("La Aplicación puede verse interrumpida por mantenimiento, actualizaciones o fallos técnicos.")
 
-            Text("5) Actualizaciones").font(.headline)
-            Text("Podemos actualizar los términos cuando sea necesario...")
-
-            // Relleno para que haya scroll
-            ForEach(0..<8) { _ in
-                Text("Aviso: las métricas de riesgo (roya, broca, ojo de gallo, antracnosis) se basan en modelos y pueden variar por condiciones locales.")
-            }
+            Text("4. PROPIEDAD INTELECTUAL").font(.headline)
+            Text("Todos los contenidos de la Aplicación, incluyendo textos, imágenes, modelos de predicción, bases de datos, interfaces, y código fuente, son propiedad exclusiva de [Nombre del desarrollador o empresa], o se utilizan bajo licencia, y están protegidos por las leyes de propiedad intelectual.") +
+            Text("Queda prohibido:") +
+            Text("Copiar, reproducir, distribuir o modificar cualquier parte de la Aplicación sin autorización previa por escrito.") +
+            Text("Utilizar ingeniería inversa sobre el software o sus componentes.")
+            
+            Text("5. CONDUCTA DEL USUARIO").font(.headline)
+            Text("Usted se compromete a:") +
+            Text("No utilizar la Aplicación con fines ilegales, fraudulentos o no autorizados.") +
+            Text("No intentar acceder a datos de otros usuarios o comprometer la seguridad del sistema.") +
+            Text("Mantener la confidencialidad de su contraseña y cuenta de usuario.")
+            
+            Text("6. MODIFICACIONES").font(.headline)
+            Text("Nos reservamos el derecho a modificar estos Términos y Condiciones en cualquier momento. Le notificaremos los cambios relevantes a través de la Aplicación o al correo electrónico proporcionado. El uso continuado después de dichos cambios implica su aceptación.")
+            
+            Text("7. CANCELACIÓN DE CUENTA").font(.headline)
+            Text("Usted puede cancelar su cuenta en cualquier momento desde la Aplicación o solicitándolo a nuestro equipo de soporte. Nos reservamos el derecho de suspender o eliminar cuentas que incumplan estos Términos.")
+            
+            Text("8. LEGISLACIÓN APLICABLE").font(.headline)
+            Text("Estos Términos se regirán e interpretarán conforme a las leyes de [país o jurisdicción aplicable]. Cualquier disputa será resuelta ante los tribunales competentes de dicha jurisdicción.")
+            
+            Text("9. CONTACTO").font(.headline)
+            Text("Si tiene preguntas sobre estos Términos o sobre el uso de sus datos, puede contactarnos en:") +
+            Text("📧 Correo electrónico: [correo@ejemplo.com]") +
+            Text("📍 Dirección: [Dirección de la empresa o responsable]")
         }
     }
 }
@@ -122,7 +151,7 @@ private struct _ContentSizeKey: PreferenceKey {
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
 }
 
-/// Considera que llegó al fondo si desplazamiento + alto visible >= alto del contenido - tolerancia
+// Considera que llegó al fondo si desplazamiento + alto visible >= alto del contenido - tolerancia
 private struct _BottomReachedSimple: ViewModifier {
     @Binding var atBottom: Bool
     var tolerance: CGFloat = 24
