@@ -8,141 +8,142 @@
 import SwiftUI
 
 struct AlertView: View {
+    @StateObject private var VM = AlertViewModel()
+    @State private var selectedDate: Date = Date()
+    
+    var visibleDays: [Date] {
+        let calendar = Calendar.current
+        return (-6...6).compactMap { offset in
+            calendar.date(byAdding: .day, value: offset, to: Date())
+        }
+    }
+    
+    var groupedByDate: [Alert] {
+        VM.alerts.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+    }
+    
+    var groupedByCategory: [String: [Alert]] {
+        Dictionary(grouping: groupedByDate, by: { $0.category })
+    }
     
     var body: some View {
-        HStack (spacing: 0) {
-            
-            ZStack {
-                // Fondo
-                Color.white
-                    .edgesIgnoringSafeArea(.all)
-                
-                // Contenido principal
-                HStack(spacing: 0) {
-                    GeometryReader { geo in
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: geo.size.height * 0.025) {
-                                Text("Alertas")
-                                    .font(.system(size: 55, weight: .bold))
-                                    .foregroundColor(Color.verdeOscuro)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.top, 20)
-                                    .padding()
-                                
-                                Text("Enfermedades")
-                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                    .padding(.horizontal)
-                                
-                                Alert(category: "Enfermedades",
-                                      image: "AlertExample",
-                                      title: "Solucionar plaga",
-                                      description: "Aplica el tratamiento necesario para combatir la broca del cafe",
-                                      geo: geo)
-                                
-                                Text("Fertilización")
-                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                    .padding(.horizontal)
-                                
-                                Alert(category: "Fertilización",
-                                      image: "AlertaFertilizar",
-                                      title: "Fertilizar",
-                                      description: "Revisar estado de fertilización de la parcela",
-                                      geo: geo)
-                                
-                                Text("Clima")
-                                    .font(.system(size: geo.size.width * 0.04, weight: .semibold))
-                                    .padding(.horizontal)
-                                
-                                Alert(category: "Clima",
-                                      image: "AlertaClima",
-                                      title: "Clima extremadamente caluroso",
-                                      description: "Recuerda regar las plantas",
-                                      geo: geo)
-                                
-                                Alert(category: "Clima",
-                                      image: "AlertaClima",
-                                      title: "Clima propenso a enfermedades",
-                                      description: "Las condiciones actuales del clima pueden generar enfermedades, toma precauciones",
-                                      geo: geo)
-                                
-                                Spacer().frame(height: 150) // espacio para el botón flotante
+        NavigationStack {
+            VStack {
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(visibleDays, id: \.self) { day in
+                            let isSelected = Calendar.current.isDate(day, inSameDayAs: selectedDate)
+                            VStack {
+                                Text(day, format: .dateTime.weekday(.abbreviated))
+                                    .font(.caption)
+                                Text(day, format: .dateTime.day())
+                                    .font(.headline)
                             }
-                            .frame(width: geo.size.width)
+                            .padding(8)
+                            .background(isSelected ? Color.green.opacity(0.7) : Color.gray.opacity(0.2))
+                            .cornerRadius(8)
+                            .onTapGesture { selectedDate = day }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
+                .padding(.vertical, 4)
+                
+                if VM.isLoading {
+                    VStack {
+                        Text("Cargando alertas...")
+                        ProgressView()
+                    }
+                    .padding()
+                }
+                
+                if VM.hasError {
+                    Text("Error cargando alertas")
+                        .foregroundColor(.red)
+                        .padding()
+                }
+                
+                List {
+                    ForEach(groupedByCategory.keys.sorted(), id: \.self) { category in
+                        Section(header: Text(category)) {
+                            ForEach(groupedByCategory[category] ?? []) { alert in
+                                AlertRow(alertObject: alert)
+                            }
                         }
                     }
                 }
-                
-                
-                MicrophoneButton(color: Color.verdeOscuro)
             }
+            .navigationTitle("Alertas")
         }
-        .greenSidebar()
     }
 }
 
-#Preview {
-    AlertView()
-}
-
-// ------------------
-// Estructura Alert
-// ------------------
-struct Alert: View {
+struct AlertRow: View {
     @State private var isCompleted = false
-    let category: String
-    let image: String
-    let title: String
-    let description: String
-    let geo: GeometryProxy
+    @State private var showDatePicker = false
+    @State private var newDate: Date = Date()
+    
+    let alertObject: Alert
     
     var buttonColor: Color {
-        category == "Enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255)
+        alertObject.category == "Enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255)
     }
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
-                Image(systemName: "ellipsis")
-                    .font(.system(size: geo.size.width * 0.04))
-                    .padding(.trailing, geo.size.width * 0.03)
-                    .padding(.top, geo.size.height * 0.01)
+                Button {
+                    newDate = alertObject.date
+                    showDatePicker = true
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 16))
+                        .padding(.trailing, 12)
+                        .padding(.top, 4)
+                }
+                .sheet(isPresented: $showDatePicker) {
+                    VStack(spacing: 20) {
+                        DatePicker("Cambiar fecha", selection: $newDate, displayedComponents: .date)
+                            .datePickerStyle(.wheel)
+                            .padding()
+                        
+                        Button("Guardar") {
+                            alertObject.date = newDate
+                            showDatePicker = false
+                        }
+                        .padding()
+                    }
+                    .presentationDetents([.medium])
+                }
             }
             
-            HStack(spacing: geo.size.width * 0.02) {
-                Image(image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geo.size.width * 0.18, height: geo.size.width * 0.18)
-                    .cornerRadius(geo.size.width * 0.03)
-                
-                VStack(alignment: .leading, spacing: geo.size.height * 0.01) {
-                    Text(title)
-                        .font(.system(size: geo.size.width * 0.03, weight: .bold))
+            HStack(spacing: 8) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(alertObject.title)
+                        .font(.headline)
                         .foregroundColor(.primary)
-                    Text(description)
-                        .font(.system(size: geo.size.width * 0.03))
+                    Text(alertObject.action)
+                        .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 
                 Spacer()
                 
                 Text(isCompleted ? "Listo" : "Completar")
-                    .font(.system(size: geo.size.width * 0.03, weight: .semibold))
+                    .font(.subheadline)
                     .foregroundColor(isCompleted ? .gray : .white)
-                    .padding()
+                    .padding(8)
                     .background(isCompleted ? Color(.white) : buttonColor)
-                    .cornerRadius(geo.size.width * 0.02)
-                    .onTapGesture {
-                        isCompleted.toggle()
-                    }
+                    .cornerRadius(8)
+                    .onTapGesture { isCompleted.toggle() }
             }
-            .padding(.horizontal, geo.size.width * 0.03)
-            .padding(.bottom, geo.size.height * 0.02)
+            .padding()
         }
-        .background(Color(.systemBackground))
-        .cornerRadius(geo.size.width * 0.05)
-        .shadow(color: .black.opacity(0.15), radius: geo.size.width * 0.02, x: 0, y: geo.size.height * 0.005)
-        .padding(.horizontal, geo.size.width * 0.02)
+        .padding(.horizontal)
     }
+}
+
+#Preview{
+    AlertView()
 }
