@@ -4,46 +4,127 @@ PearCo Swift App
 ## API
 The code for the API can be found at: https://github.com/hectorpablogzz/PearCoFlaskAPI/tree/main
 
-# CafeCare (iOS + Flask API)
+# CafeCare (PearCoProject)
 
-## What the app does
-**CafeCare** is an iOS app (SwiftUI) that displays relevant information about coffee plant diseases, as well as features a voice agent and machine learning to analyze pictures as well.  
-The app consumes a **Flask** API hosted on **Render**.
+Based on an iOS + Flask API stack.
 
-## Stack Used
-**Mobile App**  
-Swift 5, SwiftUI, Observation (`@Observable`), URLSession, Codable (JSON parsing), NavigationStack, Async/Await (concurrency), **Charts** (data visualization), **XCTest** (unit/UI tests), Xcode 15+, iOS 17 SDK
+## What's in the stack
 
-**Backend API**  
-Python 3.12, **Flask**, Gunicorn (WSGI server), JSON handling, Docker, **Render** (hosting)
+### Mobile App (iOS)
+- Swift 5 / Xcode 15+ / iOS 17 SDK
+- SwiftUI (declarative UI)
+- Observation (`@Observable`) for state updates
+- URLSession for networking
+- Codable for JSON parsing
+- NavigationStack for navigation
+- Charts for data visualization
+- XCTest for unit/UI testing
+- Clean Code: small, clear views, consistent naming, early guard statements, no dead code
 
-**Architecture & Code Quality**  
-MVVM (Model–View–ViewModel), single responsibility, consistent naming, no dead code, early `guard` for fail-fast, meaningful commits, concise in-line comments
+### Backend API (Flask)
+- Python 3.12
+- Flask for REST API routes
+- Docker (containerized deployment)
+- Render (Free plan hosting with HTTPS)
 
-## API (production)
-Base URL: `https://pearcoflaskapi.onrender.com`
+## Requirements
 
-**Endpoints**
-- `GET /` — health/demo endpoint  
-  - Optional query param: `who`  
-  - Example: `https://pearcoflaskapi.onrender.com/?who=CafeCare`  
-  - Response:
-    ```json
-    { "message": "it works, CafeCare!" }
-    ```
-- `GET /reports` — returns raw reports JSON for coffee disease probabilities  
-- `GET /summary` — returns aggregated/summary JSON
+### iOS
+- macOS with **Xcode 15+**
+- iOS 17 or later (target)
+- Internet connection to access the Render API
 
-> JSON shapes can evolve; the iOS app decodes the fields it needs.
+### API (optional, if you develop locally)
+- Python 3.12
+- `pip` or `uv`
+- Docker (optional for container builds)
 
-## 📱 How to run the iOS app
-- **Requirements:** Xcode 15+, iOS 17+
-- Open the project in Xcode and run (`Cmd + R`).
-- Networking snippet (example):
+## Environment Variables
+
+### iOS
+No private keys or secrets required. The app connects to the public API via HTTPS.
 
 ```swift
 enum APIConfig {
     static let base = URL(string: "https://pearcoflaskapi.onrender.com")!
     static var reportsURL: URL { base.appendingPathComponent("/reports") }
     static var summaryURL: URL { base.appendingPathComponent("/summary") }
-}
+}.
+
+## API Endpoints (Production)
+Base URL:
+https://pearcoflaskapi.onrender.com
+
+Routes
+
+Method	Endpoint	Description
+GET	/	Health check (optionally add ?who=CafeCare)
+GET	/reports	Returns disease probability reports in JSON
+GET	/summary	Returns aggregated summary JSON
+
+## Deployment (API on Render)
+If the API is already live, skip this section.
+To redeploy or fork it under another account:
+
+Prerequisites
+Repo must include:
+
+app.py (Flask app exposing /, /reports, /summary)
+
+Dockerfile
+
+requirements.txt (recommended)
+
+## Test:
+
+https://<your-service>.onrender.com/
+
+https://<your-service>.onrender.com/reports
+
+https://<your-service>.onrender.com/summary
+
+## Database / Data
+The iOS app doesn’t store data locally; all information is fetched in real time from the API.
+
+## Testing
+iOS (XCTest)
+Run tests directly in Xcode:
+⌘ + U
+
+## Linting / Formatting
+Swift: Use built-in Xcode format or SwiftFormat (optional)
+
+Python: Use black or ruff for style consistency
+
+## Clean Code & Practices
+Single Responsibility: Views only handle UI; networking logic isolated in API classes.
+
+Consistent Naming: Descriptive variable names, plural nouns for collections.
+
+No Dead Code: Remove unused prints and branches.
+
+Early Guards: Fail fast using guard statements for invalid data or responses.
+
+Friendly UX: Show clear messages for errors and loading states.
+
+Inline Comments: Only where logic is non-obvious.
+
+## Deployment Summary
+iOS App
+
+Build & Run in Xcode (Simulator or physical device)
+
+Consumes the Render-hosted Flask API
+
+Flask API
+
+Deployed from GitHub using Docker on Render (Free plan)
+
+## Useful Docs
+Render Docs → https://render.com/docs
+
+Flask → https://flask.palletsprojects.com/
+
+SwiftUI → https://developer.apple.com/documentation/swiftui/
+
+Charts → https://developer.apple.com/documentation/charts/
