@@ -11,10 +11,14 @@ The code for the API can be found at: https://github.com/hectorpablogzz/PearCoFl
 The app consumes a **Flask** API hosted on **Render**.
 
 ## Stack Used
-- **Mobile App:** Swift 5, SwiftUI, Observation (`@Observable`), URLSession
-- **Backend API:** Python 3.12, **Flask**
-- **Packaging:** Docker (Dockerfile)
-- **Hosting / Deploy:** Render (Free plan)
+**Mobile App**  
+Swift 5, SwiftUI, Observation (`@Observable`), URLSession, Codable (JSON parsing), NavigationStack, Async/Await (concurrency), **Charts** (data visualization), **XCTest** (unit/UI tests), Xcode 15+, iOS 17 SDK
+
+**Backend API**  
+Python 3.12, **Flask**, Gunicorn (WSGI server), JSON handling, Docker, **Render** (hosting)
+
+**Architecture & Code Quality**  
+MVVM (Model–View–ViewModel), single responsibility, consistent naming, no dead code, early `guard` for fail-fast, meaningful commits, concise in-line comments
 
 ## API (production)
 Base URL: `https://pearcoflaskapi.onrender.com`
