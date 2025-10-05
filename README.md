@@ -4,19 +4,19 @@ PearCo Swift App — iOS + Flask API stack
 
 ---
 
-## 📡 API Repository
+## API Repository
 
 The Flask API code is available here:  
-👉 [https://github.com/hectorpablogzz/PearCoFlaskAPI](https://github.com/hectorpablogzz/PearCoFlaskAPI)
+ [https://github.com/hectorpablogzz/PearCoFlaskAPI](https://github.com/hectorpablogzz/PearCoFlaskAPI)
 
 Production base URL:  
 `https://pearcoflaskapi.onrender.com`
 
 ---
 
-## ⚙️ What's in the stack
+## What's in the stack
 
-### 🧭 Mobile App (iOS)
+### Mobile App (iOS)
 - Swift 5 / Xcode 15+ / iOS 17 SDK  
 - SwiftUI (declarative UI)  
 - Observation (`@Observable`) for state management  
@@ -27,7 +27,7 @@ Production base URL:
 - XCTest for unit/UI testing  
 - Clean Code: small, clear views, consistent naming, early `guard` statements, no dead code  
 
-### ☕ Backend API (Flask)
+### Backend API (Flask)
 - Python 3.12  
 - Flask for REST API routes  
 - Docker (containerized deployment)  
@@ -35,7 +35,7 @@ Production base URL:
 
 ---
 
-## 🧩 Requirements
+## Requirements
 
 ### iOS
 - macOS with **Xcode 15+**  
@@ -49,7 +49,7 @@ Production base URL:
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 ### iOS
 No private keys or secrets required.  
@@ -65,7 +65,7 @@ enum APIConfig {
 
 ---
 
-## 🌐 API Endpoints (Production)
+## API Endpoints (Production)
 
 **Base URL:**  
 `https://pearcoflaskapi.onrender.com`
@@ -83,7 +83,7 @@ curl https://pearcoflaskapi.onrender.com/summary
 
 ---
 
-## 🚀 Deployment (API on Render)
+## Deployment (API on Render)
 
 If the API is already live, skip this section.  
 To redeploy or fork it under another account:
@@ -94,7 +94,7 @@ Your repo must include:
 - `Dockerfile`
 - `requirements.txt` *(recommended)*
 
-### 🐳 Example Dockerfile
+### Example Dockerfile
 ```dockerfile
 FROM python:3.12-slim
 
@@ -112,7 +112,7 @@ EXPOSE 8000
 CMD ["sh","-c","flask run --host=0.0.0.0 --port=${PORT}"]
 ```
 
-### 🧾 Example requirements.txt
+### Example requirements.txt
 ```
 flask==3.0.0
 # Add any libraries used for reports or data processing
@@ -131,12 +131,12 @@ flask==3.0.0
 
 ---
 
-## 🗄️ Database / Data
+## Database / Data
 The iOS app doesn’t store data locally; all information is fetched in real time from the API.  
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### iOS (XCTest)
 Run tests directly in Xcode:
@@ -150,13 +150,13 @@ Example test names:
 
 ---
 
-## 🧹 Linting / Formatting
+## Linting / Formatting
 - **Swift:** Use Xcode’s built-in formatter or SwiftFormat  
 - **Python:** Use `black` or `ruff` for style consistency  
 
 ---
 
-## 🧼 Clean Code Practices
+## Clean Code Practices
 - **Single Responsibility:** Views handle UI only; networking isolated in API layer.  
 - **Consistent Naming:** Descriptive variable names, plural nouns for collections.  
 - **No Dead Code:** Remove unused prints and logic branches.  
@@ -166,7 +166,7 @@ Example test names:
 
 ---
 
-## 📦 Deployment Summary
+## Deployment Summary
 
 **iOS App**
 - Build & run in Xcode (Simulator or device)  
