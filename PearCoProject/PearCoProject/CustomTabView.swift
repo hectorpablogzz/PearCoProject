@@ -51,11 +51,11 @@ struct CustomTabView: View {
             }
 
             NavigationStack {
-                FarmersView()
+                CaficultorView()
             }
             .tabItem {
                 Image(systemName: "person.2.fill")
-                Text("Personas") // Ahora siempre se muestra
+                Text("Caficultores") // Ahora siempre se muestra
             }
         }
         .background(
