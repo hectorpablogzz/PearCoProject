@@ -75,6 +75,10 @@ enum APIConfig {
 | `GET` | `/` | Health check (optional `?who=CafeCare`) |
 | `GET` | `/reports` | Returns disease probability reports in JSON |
 | `GET` | `/summary` | Returns aggregated summary JSON |
+| `GET` | `/caficultores` | Returns farmer profiles in JSON |
+| `POST` | `/caficultores` | Adds a farmer to the database |
+| `PUT` | `/caficultores/<id>` | Edits a farmer in the database |
+| `DELETE` | `/caficultores/<id>` | Deletes a farmer from the database |
 
 Example:  
 ```bash
