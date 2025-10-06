@@ -51,7 +51,7 @@ class AllReportsViewModel {
     
     func loadAPI() async throws {
         // 1. URL
-        guard let url = URL(string: "http://127.0.0.1:5050/reports") else {
+        guard let url = URL(string: "https://pearcoflaskapi.onrender.com/reports") else {
             print("Invalid URL")
             return
         }
