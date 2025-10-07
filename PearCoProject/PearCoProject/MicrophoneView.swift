@@ -2,107 +2,111 @@
 //  MicrophoneView.swift
 //  PearCoProject
 //
-//  Created by Alumno on 10/09/25.
+//  Created by marielgonzalezg on 10/09/25.
 //
+
 
 import SwiftUI
 
 struct MicrophoneView: View {
-    @State private var animate = false
     
-
+    let color: Color
+    
+    @State private var isOn: Bool = false
+    @State private var isThinking: Bool = false
+    @State private var initial: Bool = true
+    
+    @State private var vm: VoiceAssistantVM?
+    @StateObject private var speechRecognizer = SpeechRecognizer()
+    
     var body: some View {
-        ZStack {
-            // Gradient background
-            LinearGradient(
-                colors: [Color.black.opacity(0.9), Color.black.opacity(0.7)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .edgesIgnoringSafeArea(.all)
+        VStack(spacing: 20) {
             
-            // Animated sound waves
-            VStack {
-                Spacer()
-                ZStack {
-                    ForEach(0..<5) { i in
-                        WaveShape(amplitude: CGFloat(10 + i*5), frequency: CGFloat(1 + Double(i)*0.2), phase: animate ? .pi*2 : 0)
-                            .stroke(
-                                LinearGradient(
-                                    colors: [Color.verdeClaro.opacity(0.6 - Double(i)*0.1), Color.verdeOscuro.opacity(0.3 - Double(i)*0.05)],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                ),
-                                lineWidth: 3
-                            )
-                            .frame(height: 100)
-                            .offset(y: CGFloat(-i*20))
-                            .animation(
-                                Animation.easeInOut(duration: 1.2 + Double(i)*0.2)
-                                    .repeatForever(autoreverses: true),
-                                value: animate
-                            )
+            Text("Latte")
+                .font(.system(size: 28, weight: .bold))
+                .padding(.top, 20)
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 15) {
+                    if initial {
+                        Text("Ejemplos de lo que puedes preguntar:")
+                            .font(.headline)
+                        
+                        Text("• \"Dime el riesgo de broca en octubre.\"")
+                        Text("• \"¿Qué factores impactan en la propagación de roya?\"")
+                        Text("• \"Dime maneras de prevenir el ojo de gallo en el café.\"")
+                    } else if isThinking {
+                        // Mostramos pensando
+                        HStack {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: color))
+                            Text("Pensando...")
+                                .foregroundColor(.gray)
+                                .italic()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                    } else if let response = vm?.response {
+                        // Estilo de la respuesta
+                        Text(response)
+                            .font(.body)
+                            .foregroundColor(.black)
+                            .lineSpacing(5)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(12)
+                    } else if !speechRecognizer.transcript.isEmpty {
+                        Text("Escuchando: \(speechRecognizer.transcript)")
+                            .italic()
+                            .foregroundColor(.gray)
                     }
-                    
-                    // Central mic
-                    Circle()
-                        .fill(
-                            RadialGradient(
-                                gradient: Gradient(colors: [Color.verdeOscuro, Color.verdeClaro]),
-                                center: .center,
-                                startRadius: 5,
-                                endRadius: 50
-                            )
-                        )
-                        .frame(width: 90, height: 90)
-                        .shadow(color: Color.verdeClaro.opacity(0.6), radius: 20, x: 0, y: 0)
-                        .overlay(
-                            Image(systemName: "mic.fill")
-                                .font(.system(size: 36))
-                                .foregroundColor(.white)
-                                .shadow(color: .black.opacity(0.3), radius: 2, x: 0, y: 1)
-                        )
-                        .scaleEffect(animate ? 1.05 : 1.0)
-                        .animation(
-                            Animation.easeInOut(duration: 0.8)
-                                .repeatForever(autoreverses: true),
-                            value: animate
-                        )
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+            }
+            
+            Spacer()
+        }
+        .padding(.bottom, 10)
+        .safeAreaInset(edge: .bottom) {
+            HStack {
+                Spacer()
+                Button(action: {
+                    initial = false
+                    if isOn {
+                        speechRecognizer.stopTranscribing()
+                        
+                        if !speechRecognizer.transcript.isEmpty {
+                            vm = VoiceAssistantVM(prompt: speechRecognizer.transcript)
+                            Task {
+                                isThinking = true
+                                await vm?.generateResponse()
+                                isThinking = false
+                            }
+                        }
+                    } else {
+                        speechRecognizer.startTranscribing()
+                    }
+                    isOn.toggle()
+                }) {
+                    Image(systemName: isOn ? "checkmark" : "mic.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 36))
+                        .frame(width: 80, height: 80)
+                        .background(Circle().fill(color))
+                        .shadow(radius: 5)
+                }
+                .disabled(isThinking)
+                .opacity(isThinking ? 0.3 : 1.0)
                 Spacer()
             }
+            .padding(.vertical, 15)
+            .background(Color.white.opacity(0.95))
         }
-        .onAppear {
-            animate = true
-        }
-    }
-}
-
-// Custom wave shape
-struct WaveShape: Shape {
-    var amplitude: CGFloat
-    var frequency: CGFloat
-    var phase: CGFloat
-
-    var animatableData: CGFloat {
-        get { phase }
-        set { phase = newValue }
-    }
-
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let width = rect.width
-        let height = rect.height / 2
-        path.move(to: CGPoint(x: 0, y: height))
-        for x in stride(from: 0, to: width, by: 1) {
-            let relativeX = x / width
-            let y = height + sin(relativeX * frequency * 2 * .pi + phase) * amplitude
-            path.addLine(to: CGPoint(x: x, y: y))
-        }
-        return path
     }
 }
 
 #Preview {
-    MicrophoneView()
+    MicrophoneView(color: Color.green)
 }
+
