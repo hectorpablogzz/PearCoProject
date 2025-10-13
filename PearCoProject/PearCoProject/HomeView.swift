@@ -20,8 +20,8 @@ struct HomeView: View {
                     // Contenido principal
                     VStack(spacing: 40) {
                         // Título
-                        Text("Menú Principal")
-                            .font(.system(size: 40, weight: .bold))
+                        Text("Inicio")
+                            .font(.system(size: 55, weight: .bold))
                             .foregroundColor(Color.verdeOscuro)
                         
                         Text("Toma una foto de la planta para analizar su salud")
@@ -58,7 +58,7 @@ struct HomeView: View {
                         
                         // Gráfica
                         VStack(spacing: 50) {
-                            Text("Probabilidad de Enfermedades")
+                            Text("Probabilidad de Enfermedades de Hoy")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(Color.verdeOscuro)

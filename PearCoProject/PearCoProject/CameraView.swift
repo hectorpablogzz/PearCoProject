@@ -27,9 +27,8 @@ struct CameraView: View {
                             
                             // Título
                             Text("Diagnóstico por Foto")
-                                .font(.system(size: 50, weight: .bold))
-                                .foregroundColor(Color.verdeTitulos)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.system(size: 55, weight: .bold))
+                                .foregroundColor(Color.verdeOscuro)
                             
                             Text("Centre la planta en la cámara para continuar")
                                 .font(.title2)

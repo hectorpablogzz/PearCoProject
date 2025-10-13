@@ -133,3 +133,4 @@ private struct TermsBodyText: View {
         }
     }
 }
+

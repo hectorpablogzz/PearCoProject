@@ -29,6 +29,9 @@ struct AlertView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Text("Alertas")
+                    .font(.system(size: 55, weight: .bold))
+                    .foregroundColor(Color.verdeOscuro)
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
                         ForEach(visibleDays, id: \.self) { day in
@@ -73,7 +76,6 @@ struct AlertView: View {
                     }
                 }
             }
-            .navigationTitle("Alertas")
         }
     }
 }
