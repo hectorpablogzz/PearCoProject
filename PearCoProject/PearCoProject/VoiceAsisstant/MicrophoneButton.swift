@@ -57,7 +57,7 @@ struct MicrophoneButton: View {
             )
             .sheet(isPresented: $showSheet) {
                 // Open MicrophoneView
-                MicrophoneView(color: Color.verdeOscuro)
+                LatteDetailView(color: Color.verdeOscuro)
             }
         }
     }
