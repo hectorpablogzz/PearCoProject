@@ -1,0 +1,202 @@
+//
+//  Enfermedades.json
+//  PearCoProject
+//
+//  Created by José Francisco González on 15/10/25.
+//
+[
+{
+  "enfermedades": [
+    {
+      "nombre": "Roya del café",
+      "causante": "Hongo Hemileia vastatrix",
+      "tipo": "Hongo foliar",
+      "sintomas": [
+        "Manchas amarillas o anaranjadas en el haz de las hojas",
+        "Polvo anaranjado en el envés de las hojas",
+        "Caída prematura de hojas",
+        "Reducción del área fotosintética",
+        "Debilitamiento general de la planta"
+      ],
+      "condiciones_favorables": [
+        "Temperaturas entre 16 y 28 °C",
+        "Alta humedad",
+        "Hojas húmedas por varias horas"
+      ],
+      "diseminacion": [
+        "El viento transporta esporas del hongo",
+        "La lluvia y las herramientas contaminadas también ayudan a su propagación"
+      ],
+      "control": {
+        "preventivo": [
+          "Podar para mejorar la ventilación",
+          "Evitar exceso de sombra",
+          "Eliminar hojas infectadas",
+          "Sembrar variedades resistentes",
+        ],
+        "quimico": [
+          "Aplicar fungicidas a base de cobre o sistémicos en momentos críticos"
+        ],
+        "biologico": [
+          "Uso de bacterias antagonistas como Bacillus spp."
+        ]
+      },
+      "impacto": "Puede causar pérdidas de hasta 50% en la producción si no se controla."
+    },
+    {
+      "nombre": "Broca del café",
+      "causante": "Insecto Hypothenemus hampei",
+      "tipo": "Insecto perforador",
+      "sintomas": [
+        "Pequeños orificios en los granos de café",
+        "Presencia de larvas dentro del grano",
+        "Daño interno que reduce la calidad del café",
+        "Disminución del rendimiento de la cosecha"
+      ],
+      "condiciones_favorables": [
+        "Climas cálidos y húmedos",
+        "Sistemas de cultivo con poca limpieza o residuos de cosechas anteriores"
+      ],
+      "diseminacion": [
+        "A través de granos infestados",
+        "Por transporte de frutos contaminados",
+        "Por herramientas o maquinaria"
+      ],
+      "control": {
+        "preventivo": [
+          "Recolección de frutos maduros y caídos",
+          "Podas sanitarias",
+          "Eliminación de restos de cosecha"
+        ],
+        "biologico": [
+          "Liberación del parasitoide Phymastichus coffea",
+          "Uso del hongo Beauveria bassiana"
+        ],
+        "mecanico": [
+          "Trampas con alcohol o feromonas para capturar adultos"
+        ]
+      },
+      "impacto": "Es la plaga más dañina del café a nivel mundial, afecta la calidad y el rendimiento."
+    },
+    {
+      "nombre": "Ojo de gallo",
+      "causante": "Hongo Mycena citricolor",
+      "tipo": "Hongo foliar",
+      "sintomas": [
+        "Manchas circulares de color marrón con bordes claros en las hojas",
+        "Aspecto de “ojo de gallo” en las manchas",
+        "Caída prematura de hojas en casos graves"
+      ],
+      "condiciones_favorables": [
+        "Alta humedad y temperaturas moderadas",
+        "Exceso de sombra y poca ventilación"
+      ],
+      "diseminacion": [
+        "Por salpicaduras de lluvia",
+        "Por contacto con hojas infectadas"
+      ],
+      "control": {
+        "preventivo": [
+          "Podas regulares para mejorar la ventilación",
+          "Evitar exceso de sombra",
+          "Eliminar hojas y ramas enfermas"
+        ],
+        "quimico": [
+          "Aplicación de fungicidas protectores en épocas lluviosas"
+        ]
+      },
+      "impacto": "Reduce la capacidad fotosintética y debilita el árbol, afectando la producción."
+    },
+    {
+      "nombre": "Antracnosis del café",
+      "causante": "Hongo Colletotrichum gloeosporioides",
+      "tipo": "Hongo en hojas y frutos",
+      "sintomas": [
+        "Manchas marrones hundidas en hojas, tallos y frutos",
+        "Lesiones que se expanden y provocan necrosis",
+        "Secado de ramas jóvenes y frutos inmaduros"
+      ],
+      "condiciones_favorables": [
+        "Ambientes cálidos y húmedos",
+        "Presencia de lluvias constantes"
+      ],
+      "diseminacion": [
+        "A través del viento y el agua de lluvia",
+        "Por contacto con plantas infectadas"
+      ],
+      "control": {
+        "preventivo": [
+          "Eliminar frutos y hojas enfermas",
+          "Evitar el exceso de humedad en el cultivo"
+        ],
+        "quimico": [
+          "Uso de fungicidas específicos durante brotación y floración"
+        ],
+        "biologico": [
+          "Uso de extractos vegetales antifúngicos y microorganismos benéficos"
+        ]
+      },
+      "impacto": "Causa pérdidas significativas en la producción y afecta la calidad del grano."
+    },
+    {
+      "nombre": "Mancha de Cercospora",
+      "causante": "Hongo Cercospora coffeicola",
+      "tipo": "Hongo foliar",
+      "sintomas": [
+        "Manchas marrones con bordes amarillos en hojas y frutos",
+        "Desprendimiento de hojas afectadas",
+        "Pérdida de vigor en las plantas"
+      ],
+      "condiciones_favorables": [
+        "Alta humedad y lluvias frecuentes",
+        "Poca ventilación entre plantas"
+      ],
+      "diseminacion": [
+        "Por viento y agua de lluvia",
+        "Por residuos de hojas infectadas"
+      ],
+      "control": {
+        "preventivo": [
+          "Deshoje selectivo para mejorar la ventilación",
+          "Evitar exceso de sombra",
+          "Aplicar fertilización balanceada"
+        ],
+        "quimico": [
+          "Fungicidas protectores y sistémicos en época de lluvias"
+        ]
+      },
+      "impacto": "Reduce la capacidad fotosintética y puede afectar el llenado del grano."
+    },
+    {
+      "nombre": "Marchitez del café",
+      "causante": "Hongo Fusarium xylarioides",
+      "tipo": "Hongo vascular",
+      "sintomas": [
+        "Marchitez progresiva de hojas",
+        "Necrosis del sistema vascular",
+        "Muerte rápida de plantas jóvenes",
+        "Hojas amarillas que permanecen adheridas"
+      ],
+      "condiciones_favorables": [
+        "Suelos infectados con el hongo",
+        "Heridas en raíces por labores de campo"
+      ],
+      "diseminacion": [
+        "Por herramientas contaminadas",
+        "Por suelo infectado o agua de riego"
+      ],
+      "control": {
+        "preventivo": [
+          "Eliminar plantas afectadas y quemarlas",
+          "Evitar replantar en el mismo lugar por varios meses",
+          "Desinfectar herramientas después de usarlas"
+        ],
+        "resistente": [
+          "Usar variedades con tolerancia al hongo"
+        ]
+      },
+      "impacto": "Puede causar la muerte de plantas completas, afectando severamente la plantación."
+    }
+  ]
+}
+]

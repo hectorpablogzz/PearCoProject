@@ -40,12 +40,15 @@ import Playgrounds
     let session = LanguageModelSession(instructions: instructions)
     
     // prompt model
-    let response = try await session.respond(to: "Dime cinco recomendaciones para tratar la broca del café.", generating: simpleRecommendations.self)
+    let response = try await session.respond(to: "Dime recomendaciones para tratar la broca del café.", generating: Recommendations.self)
     
 }
 
 @Generable
-struct simpleRecommendations{
+struct Recommendations{
+    @Guide(.anyOf(["Broca del café", "Roya del café","Ojo de gallo", "Antracnosis", "Mancha negra"]))
+    let enfermedad: String
+    
     @Guide(description: "Título descriptivo para la recomendación.")
     let title: String
     
@@ -57,25 +60,4 @@ struct simpleRecommendations{
     let datos: [String]
 }
 
-#Playground {
-    let model = SystemLanguageModel.default
-
-    // The availability property provides detailed information on the model's state.
-    switch model.availability {
-        case .available:
-            print("Foundation Models is available and ready to go!")
-
-        case .unavailable(.deviceNotEligible):
-            print("The model is not available on this device.")
-
-        case .unavailable(.appleIntelligenceNotEnabled):
-            print("Apple Intelligence is not enabled in Settings.")
-
-        case .unavailable(.modelNotReady):
-            print("The model is not ready yet. Please try again later.")
-
-        case .unavailable(let other):
-            print("The model is unavailable for an unknown reason.")
-    }
-}
 

@@ -13,20 +13,40 @@ struct LatteDetailView: View {
     
     private let model = SystemLanguageModel.default
     
-    
 
     var body: some View {
         switch model.availability {
         case .available:
             MicrophoneView(color: .verdeOscuro)
             
-        case .unavailable:
+        case .unavailable(.appleIntelligenceNotEnabled):
             MessageView(
                 message: """
                          Latte no está disponible porque \
                          Apple Intelligence no está prendido.
                          """
             )
+        case .unavailable(.deviceNotEligible):
+            MessageView(
+                message: """
+                Latte no está disponible porque \
+                el dispositivo no es elegible.
+                """
+                )
+        case .unavailable(.modelNotReady):
+            MessageView(
+                message: """
+                Latte no está disponible porque \
+                el dispositivo no es elegible.
+                """
+                )
+        case.unavailable(let other):
+            MessageView(
+                message: """
+                Latte no está disponible por razón desconocida.
+                """
+                )
+            
         @unknown default:
             MessageView(
                 message: """
