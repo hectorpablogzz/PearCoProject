@@ -23,7 +23,7 @@ final class VoiceAssistantVM: ObservableObject {
         
         let instructions = """
         Eres un asistente de voz especializado en café, diseñado para apoyar a técnicos y caficultores.
-        Comunícate de manera clara y sencilla, priorizando la comprensión humana.
+        Comunícate de manera clara y sencilla a manera de diálogo amigable, priorizando la comprensión humana.
             
         Siempre incluye título y descripción.
         """

@@ -11,16 +11,18 @@ import SwiftUI
 struct MicrophoneButton: View {
     let color: Color
     
+    // Posición inicial centrada más arriba de la esquina inferior derecha
     @State private var position: CGPoint = CGPoint(
-        x: UIScreen.main.bounds.width - 80,
-        y: UIScreen.main.bounds.height - 150
+        x: UIScreen.main.bounds.width - 120,
+        y: UIScreen.main.bounds.height - 180
     )
     @State private var showSheet = false
+    @State private var bounce: Bool = false
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                // Floating mic button
+                // 🎤 Floating mic button (simple, bonito y animado)
                 Button(action: {
                     showSheet = true
                 }) {
@@ -30,25 +32,28 @@ struct MicrophoneButton: View {
                         .frame(width: 80, height: 80)
                         .background(color)
                         .clipShape(Circle())
-                        .shadow(radius: 5)
+                        .shadow(color: color.opacity(0.5), radius: 8, x: 0, y: 4)
+                        .scaleEffect(bounce ? 1.05 : 1.0)
+                        .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: bounce)
                 }
+                .onAppear { bounce = true }
             }
             .position(x: position.x, y: position.y)
             .gesture(
                 DragGesture()
                     .onChanged { value in
-                        let x = min(max(value.location.x, 50), geo.size.width - 50)
-                        let y = min(max(value.location.y, 50), geo.size.height - 50)
+                        let margin: CGFloat = 50
+                        let x = min(max(value.location.x, margin), geo.size.width - margin)
+                        let y = min(max(value.location.y, margin), geo.size.height - margin)
                         position = CGPoint(x: x, y: y)
                     }
                     .onEnded { _ in
-                        // Snap to nearest corner
-                        let margin: CGFloat = 60
+                        let snapMargin: CGFloat = 80
                         let corners = [
-                            CGPoint(x: margin, y: margin),
-                            CGPoint(x: geo.size.width - margin, y: margin),
-                            CGPoint(x: margin, y: geo.size.height - margin),
-                            CGPoint(x: geo.size.width - margin, y: geo.size.height - margin)
+                            CGPoint(x: snapMargin, y: snapMargin),
+                            CGPoint(x: geo.size.width - snapMargin, y: snapMargin),
+                            CGPoint(x: snapMargin, y: geo.size.height - snapMargin),
+                            CGPoint(x: geo.size.width - snapMargin, y: geo.size.height - snapMargin)
                         ]
                         if let nearest = corners.min(by: { distance(from: position, to: $0) < distance(from: position, to: $1) }) {
                             withAnimation(.spring()) { position = nearest }
@@ -56,7 +61,6 @@ struct MicrophoneButton: View {
                     }
             )
             .sheet(isPresented: $showSheet) {
-                // Open MicrophoneView
                 LatteDetailView(color: Color.verdeOscuro)
             }
         }

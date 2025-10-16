@@ -18,7 +18,7 @@ struct MicrophoneView: View {
     
     @State private var vm: VoiceAssistantVM?
     @StateObject private var speechRecognizer = SpeechRecognizer()
-    @State private var RecommendationsGenerator: RecommendationsGenerator?
+    //@State private var RecommendationsGenerator: RecommendationsGenerator?
     
     
     var body: some View {
