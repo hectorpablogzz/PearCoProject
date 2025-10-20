@@ -16,7 +16,7 @@ struct RiskItem: Codable, Identifiable {
     let drivers: [String]
 }
 
-struct RiskMonthResponse: Codable {
+struct RiskMonthResponse: Decodable {
     let region_id: String
     let year: Int
     let month: Int

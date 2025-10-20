@@ -12,16 +12,29 @@ import Observation
 @Observable
 final class RiskVM {
     var monthly: [RiskMonthResponse] = []
-    var loading = false
+    var isLoading: Bool = false
     var error: String?
 
-    private let service: RiskService
-    init(service: RiskService) { self.service = service }
+    // Cambia por tu dominio base
+    private let baseURL = "https://pearcoflaskapi.onrender.com/"
 
-    func load(regionID: String, year: Int) async {
-        loading = true; defer { loading = false }
+    init(previewMonthly: [RiskMonthResponse]? = nil) {
+        if let m = previewMonthly { self.monthly = m }
+    }
+
+    func fetchMonthly(regionID: String, year: Int) async {
+        isLoading = true
+        error = nil
+        defer { isLoading = false }
         do {
-            monthly = try await service.fetchYear(regionID: regionID, year: year)
+            guard let url = URL(string: "\(baseURL)risk_series/\(regionID)/\(year)") else {
+                throw URLError(.badURL)
+            }
+            let (data, resp) = try await URLSession.shared.data(from: url)
+            guard let http = resp as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+                throw URLError(.badServerResponse)
+            }
+            monthly = try JSONDecoder().decode([RiskMonthResponse].self, from: data)
         } catch {
             self.error = error.localizedDescription
         }
