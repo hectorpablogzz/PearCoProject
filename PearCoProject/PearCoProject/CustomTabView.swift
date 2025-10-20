@@ -52,6 +52,7 @@ struct CustomTabView: View {
 
             NavigationStack {
                 CaficultorView()
+                    .modelContainer(for: [CaficultorModel.self], inMemory: true)
             }
             .tabItem {
                 Image(systemName: "person.2.fill")

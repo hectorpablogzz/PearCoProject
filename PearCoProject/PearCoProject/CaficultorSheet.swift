@@ -1,37 +1,37 @@
 //
 //  CaficultorSheet.swift
-//  CRUD
+//  DataPersistenceDB
 //
-//  Created by Héctor Pablo González on 25/09/25.
+//  Created by Héctor Pablo González on 19/10/25.
 //
 
 import SwiftUI
 import SwiftData
 
 struct CaficultorSheet: View {
-    
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) private var context
+    @Environment(\.modelContext) var context
     
-    @Binding var caficultor: Caficultor
-    @EnvironmentObject var VM: CaficultorViewModel
+    @ObservedObject var VM = CaficultorVM()
     
-    
+    // Default Caficultor with blank values
+    @Bindable var caficultor = CaficultorModel(name: "", lastname: "", birthDate: .now, gender: "", telephone: "", email: "", address: "")
     
     // Default if Caficultor is new
     var isNew : Bool = true
     
     // Title of the form depending on the scenario
-    var title: String { isNew ? "Nuevo Caficultor" : "Editar Caficultor" }
-    
-    
-    
-    
-    
+    var title : String {
+        if(isNew) {
+            "Nuevo Caficultor"
+        }
+        else {
+            "Editar Caficultor"
+        }
+    }
     
     var body: some View {
         NavigationStack{
-
             
             Form{
                 Text("Campos con asterisco (*) son obligatorios.")
@@ -61,35 +61,42 @@ struct CaficultorSheet: View {
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.large)
             .toolbar{
-                ToolbarItemGroup(placement: .topBarLeading){
+                ToolbarItem(placement: .topBarLeading){
                     Button("Cancelar"){
                         dismiss()
                     }
                 }
-                ToolbarItemGroup(placement: .topBarTrailing){
+                ToolbarItem(placement: .topBarTrailing){
 
                     Button("Guardar") {
                         // Validate if all fields are correct
-                        guard Caficultor.isValid(caficultor: caficultor) else { return }
+                        guard CaficultorModel.isValid(caficultor: caficultor) else { return }
                         
                         // save if it's new
                         if(isNew) {
+                            print(caficultor.name)
                             Task {
-                                await VM.addCaficultor(caficultor)
+                                await VM.addCaficultor(Caficultor(id: caficultor.id, name: caficultor.name, lastname: caficultor.lastname, birthDate: caficultor.birthDate, gender: caficultor.gender, telephone: caficultor.telephone, email: caficultor.email, address: caficultor.address))
                             }
+                            context.insert(caficultor)
+                            try? context.save()
                         }
                         else {
+                            print(caficultor.name)
                             Task {
-                                await VM.updateCaficultor(caficultor)
+                                await VM.updateCaficultor(Caficultor(id: caficultor.id, name: caficultor.name, lastname: caficultor.lastname, birthDate: caficultor.birthDate, gender: caficultor.gender, telephone: caficultor.telephone, email: caficultor.email, address: caficultor.address))
                             }
                         }
                     dismiss()
                     }
-                    .disabled(!Caficultor.isValid(caficultor: caficultor))
+                    .disabled(!CaficultorModel.isValid(caficultor: caficultor))
                 }
             }
         }
-            
     }
+}
+
+#Preview {
+    CaficultorSheet()
 }
 
