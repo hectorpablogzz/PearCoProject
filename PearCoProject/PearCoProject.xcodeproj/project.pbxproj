@@ -253,6 +253,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "La app necesita acceso a la cámara";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Uso de micrófono.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Uso de micrófono.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -283,6 +284,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "La app necesita acceso a la cámara";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Uso de micrófono.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "Uso de micrófono.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
