@@ -6,147 +6,139 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AlertView: View {
-    @StateObject private var VM = AlertViewModel()
-    @State private var selectedDate: Date = Date()
+    @Query private var alerts: [Alert]
+    @Environment(\.modelContext) private var context
     
+    @StateObject private var VM = AlertViewModel()
+    @State private var selectedDate = Date()
+    
+    // Calendario dinámico
     var visibleDays: [Date] {
         let calendar = Calendar.current
-        return (-6...6).compactMap { offset in
-            calendar.date(byAdding: .day, value: offset, to: Date())
-        }
-    }
-    
-    var groupedByDate: [Alert] {
-        VM.alerts.filter { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
-    }
-    
-    var groupedByCategory: [String: [Alert]] {
-        Dictionary(grouping: groupedByDate, by: { $0.category })
+        return (-6...6).compactMap { calendar.date(byAdding: .day, value: $0, to: Date()) }
     }
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Alertas")
-                    .font(.system(size: 55, weight: .bold))
-                    .foregroundColor(Color.verdeOscuro)
+                // Selector de días
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
                         ForEach(visibleDays, id: \.self) { day in
                             let isSelected = Calendar.current.isDate(day, inSameDayAs: selectedDate)
                             VStack {
-                                Text(day, format: .dateTime.weekday(.abbreviated))
-                                    .font(.caption)
-                                Text(day, format: .dateTime.day())
-                                    .font(.headline)
+                                Text(day, format: .dateTime.weekday(.abbreviated)).font(.caption)
+                                Text(day, format: .dateTime.day()).font(.headline)
                             }
                             .padding(8)
                             .background(isSelected ? Color.green.opacity(0.7) : Color.gray.opacity(0.2))
                             .cornerRadius(8)
-                            .onTapGesture { selectedDate = day }
+                            .onTapGesture {
+                                selectedDate = day
+                                VM.groupAlerts(for: day)
+                            }
                         }
                     }
                     .padding(.horizontal)
                 }
                 .padding(.vertical, 4)
                 
+                // Manejor de errores
                 if VM.isLoading {
-                    VStack {
-                        Text("Cargando alertas...")
-                        ProgressView()
-                    }
-                    .padding()
-                }
-                
-                if VM.hasError {
-                    Text("Error cargando alertas")
-                        .foregroundColor(.red)
-                        .padding()
-                }
-                
-                List {
-                    ForEach(groupedByCategory.keys.sorted(), id: \.self) { category in
-                        Section(header: Text(category)) {
-                            ForEach(groupedByCategory[category] ?? []) { alert in
-                                AlertRow(alertObject: alert)
+                    ProgressView("Cargando alertas...").padding()
+                } else if VM.hasError {
+                    Text("Error cargando alertas").foregroundColor(.red).padding()
+                } else if VM.groupedAlerts.isEmpty {
+                    Spacer()
+                    EmptyStateView()
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(VM.groupedAlerts.keys.sorted(), id: \.self) { category in
+                            Section(header: Text(category)) {
+                                let alerts = VM.groupedAlerts[category] ?? []
+                                
+                                ForEach(alerts) { alert in
+                                    AlertRow(alert: alert, VM: VM)
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                            if alert.isCompleted {
+                                                Button(role: .destructive) {
+                                                    Task { await VM.delete(alert: alert) }
+                                                } label: {
+                                                    Label("Eliminar", systemImage: "trash")
+                                                }
+                                            }
+                                        }
+                                }
                             }
                         }
                     }
+                    .listStyle(InsetGroupedListStyle())
                 }
             }
+            .navigationTitle("Alertas")
+            .task { await VM.loadAPI(for: selectedDate) }
         }
     }
 }
 
 struct AlertRow: View {
-    @State private var isCompleted = false
-    @State private var showDatePicker = false
-    @State private var newDate: Date = Date()
-    
-    let alertObject: Alert
+    @ObservedObject var alert: Alert
+    let VM: AlertViewModel
     
     var buttonColor: Color {
-        alertObject.category == "Enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255)
+        alert.category.lowercased() == "enfermedades" ? .red : Color(red: 59/255, green: 150/255, blue: 108/255)
     }
     
     var body: some View {
         VStack {
             HStack {
-                Spacer()
-                Button {
-                    newDate = alertObject.date
-                    showDatePicker = true
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .font(.system(size: 16))
-                        .padding(.trailing, 12)
-                        .padding(.top, 4)
-                }
-                .sheet(isPresented: $showDatePicker) {
-                    VStack(spacing: 20) {
-                        DatePicker("Cambiar fecha", selection: $newDate, displayedComponents: .date)
-                            .datePickerStyle(.wheel)
-                            .padding()
-                        
-                        Button("Guardar") {
-                            alertObject.date = newDate
-                            showDatePicker = false
-                        }
-                        .padding()
-                    }
-                    .presentationDetents([.medium])
-                }
-            }
-            
-            HStack(spacing: 8) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(alertObject.title)
+                    Text(alert.title)
                         .font(.headline)
                         .foregroundColor(.primary)
-                    Text(alertObject.action)
+                    Text(alert.action)
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
                 
                 Spacer()
                 
-                Text(isCompleted ? "Listo" : "Completar")
-                    .font(.subheadline)
-                    .foregroundColor(isCompleted ? .gray : .white)
-                    .padding(8)
-                    .background(isCompleted ? Color(.white) : buttonColor)
-                    .cornerRadius(8)
-                    .onTapGesture { isCompleted.toggle() }
+                if alert.type.lowercased() != "recordatorio" {
+                    Button(action: { Task { await VM.toggleCompletion(alert: alert) } }) {
+                        Text(alert.isCompleted ? "Completado" : "Completar")
+                            .font(.subheadline)
+                            .foregroundColor(alert.isCompleted ? .gray : .white)
+                            .padding(8)
+                            .background(alert.isCompleted ? Color(.systemGray6) : buttonColor)
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
-            .padding()
+            .padding(.vertical, 6)
         }
-        .padding(.horizontal)
     }
 }
 
-#Preview{
-    AlertView()
+struct EmptyStateView: View {
+    var body: some View {
+        VStack() {
+            Image(systemName: "leaf.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 180, height: 180)
+                .foregroundStyle(.green, .white)
+            
+            Text("Nada por hacer hoy")
+                .font(.title)
+        }
+    }
 }
 
+#Preview {
+    AlertView()
+}
