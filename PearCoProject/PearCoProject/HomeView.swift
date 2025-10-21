@@ -23,12 +23,11 @@ struct HomeView: View {
     }
     @State private var selectedRegion: RegionChoice = .jaltenango
     @State private var selectedYear: Int = Calendar.current.component(.year, from: Date())
+    @State private var selectedMonthIndex: Int = Calendar.current.component(.month, from: Date()) - 1  // 0..11
+    private let monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     private func regionID(for choice: RegionChoice) -> String {
         choice == .jaltenango ? REGION_JALTENANGO : REGION_SANCRIS
     }
-
-    // ✅ NUEVO: utilidades para renderizar la tabla bonita
-    private let monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     private var currentMonthIndex: Int { Calendar.current.component(.month, from: Date()) - 1 }
     private func categoryColor(_ cat: String) -> Color {
         switch cat.lowercased() {
@@ -109,6 +108,12 @@ struct HomeView: View {
 
                                 Stepper("Año \(selectedYear)", value: $selectedYear, in: 2020...2100)
                                     .frame(maxWidth: 240, alignment: .leading)
+                                Picker("Mes", selection: $selectedMonthIndex) {
+                                    ForEach(0..<monthNames.count, id: \.self) { i in
+                                        Text(monthNames[i]).tag(i)
+                                    }
+                                }
+                                .pickerStyle(.menu) // usa .segmented si quieres, pero ocupará mucho ancho
                             }
                             // ✅ NUEVO: sección mensual aislada para que el compilador no se ahogue
                             MonthlyRiskSection(
@@ -117,7 +122,7 @@ struct HomeView: View {
                                 regionIDProvider: { regionID(for: selectedRegion) },
                                 selectedYear: selectedYear,
                                 monthNames: monthNames,
-                                currentMonthIndex: currentMonthIndex,
+                                currentMonthIndex: selectedMonthIndex,
                                 categoryColor: { (cat: String) -> Color in
                                     // usar la función existente, pero con firma explícita para evitar ambigüedad
                                     self.categoryColor(cat)

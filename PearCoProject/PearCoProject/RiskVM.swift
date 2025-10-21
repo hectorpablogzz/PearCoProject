@@ -34,7 +34,8 @@ final class RiskVM {
             guard let http = resp as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
                 throw URLError(.badServerResponse)
             }
-            monthly = try JSONDecoder().decode([RiskMonthResponse].self, from: data)
+            let decoded = try JSONDecoder().decode([RiskMonthResponse].self, from: data)
+            self.monthly = decoded.sorted { $0.month < $1.month } // ← asegura orden 1..12
         } catch {
             self.error = error.localizedDescription
         }
