@@ -32,7 +32,7 @@ struct AllReportsView: View {
                                     .padding()
                                 
                                 
-                                Text("IMPORTANTE: Los reportes contienen recomendaciones basadas en algoritmos que pueden equivocarse. Antes de tomar decisiones importantes, es indispensable consultar con su técnico asignado.")
+                                Text("IMPORTANTE: Los reportes contienen recomendaciones basadas en algoritmos que pueden equivocarse. Antes de tomar decisiones importantes, es indispensable consultar con fuentes confiables.")
                                     .font(.system(size: geo.size.width * 0.03, weight: .semibold))
                                     .padding(30)
                                 

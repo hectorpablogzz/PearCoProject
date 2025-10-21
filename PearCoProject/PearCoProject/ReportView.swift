@@ -32,6 +32,8 @@ struct ReportView: View {
                     // Gráficos
                     ChartSection(title: "% Riesgo de Roya", data: report.data.map { ($0.month, Double($0.royaRisk)) }, color: .red)
                     ChartSection(title: "% Riesgo de Broca", data: report.data.map { ($0.month, Double($0.brocaRisk)) }, color: .red)
+                    ChartSection(title: "% Riesgo de Ojo de Gallo", data: report.data.map { ($0.month, Double($0.ojoRisk)) }, color: .red)
+                    ChartSection(title: "% Riesgo de Antracnosis", data: report.data.map { ($0.month, Double($0.antracRisk)) }, color: .red)
                     ChartSection(title: "Temperatura promedio (°C)", data: report.data.map { ($0.month, Double($0.temperature)) }, color: .blue)
                     ChartSection(title: "Lluvia total al mes (mm)", data: report.data.map { ($0.month, Double($0.rain)) }, color: .blue)
                     
