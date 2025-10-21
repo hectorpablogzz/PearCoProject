@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct PearCoProjectApp: App {
+    
+    @StateObject private var predictionStatus = PredictionStatus()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(predictionStatus)
         }
     }
 }
+
+
