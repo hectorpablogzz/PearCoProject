@@ -29,7 +29,7 @@ struct CaficultorView: View {
                                 .padding(.top, 20)
                                 .foregroundColor(Color.verdeOscuro)
                 if(!VM.isConnected) {
-                    Text("Modo sin conexión: No se podrán ver, agregar, editar o eliminar caficultores hasta que se reconecte.")
+                    Text("Modo sin conexión: No se podrán agregar, editar o eliminar caficultores hasta que se reconecte.")
                         .font(.headline)
                 }
                     

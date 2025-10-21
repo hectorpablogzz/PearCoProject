@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PearCoProjectApp: App {
@@ -16,6 +17,7 @@ struct PearCoProjectApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(predictionStatus)
+                .modelContainer(for: CaficultorModel.self)
         }
     }
 }

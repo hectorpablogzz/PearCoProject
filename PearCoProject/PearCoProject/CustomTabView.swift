@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CustomTabView: View {
     var body: some View {
@@ -52,7 +53,7 @@ struct CustomTabView: View {
 
             NavigationStack {
                 CaficultorView()
-                    .modelContainer(for: [CaficultorModel.self], inMemory: true)
+                    .modelContainer(for: CaficultorModel.self)
             }
             .tabItem {
                 Image(systemName: "person.2.fill")

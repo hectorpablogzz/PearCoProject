@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
 
@@ -14,6 +15,7 @@ struct ContentView: View {
         CustomTabView()
             .padding(.top, 10)
             .edgesIgnoringSafeArea(.bottom)
+            .modelContainer(for: CaficultorModel.self)
         }
 }
 
