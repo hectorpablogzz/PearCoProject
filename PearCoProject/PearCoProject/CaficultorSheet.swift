@@ -49,10 +49,10 @@ struct CaficultorSheet: View {
                     Text("Prefiero no decir").tag("X")
                 }
                 
-                TextField("Núm. de teléfono", text:$caficultor.telephone)
+                TextField("Núm. de teléfono*", text:$caficultor.telephone)
                     .keyboardType(.numberPad)
                 
-                TextField("Correo electrónico", text:$caficultor.email)
+                TextField("Correo electrónico*", text:$caficultor.email)
                     .keyboardType(.emailAddress)
                 
                 TextField("Dirección*", text:$caficultor.address)

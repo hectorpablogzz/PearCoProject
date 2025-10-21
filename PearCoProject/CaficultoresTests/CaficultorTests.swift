@@ -13,8 +13,8 @@ struct CaficultorTests {
 
     @Test("All fields must be valid")
     func testValidation() {
-        // ✅ Only obligatory fields
-        #expect(Caficultor.isValid(caficultor: Caficultor(name: "Juan", lastname: "Perez", birthDate: .now, gender: "M", telephone: "", email: "", address: "123 Street")))
+        // ✅ All fields
+        #expect(Caficultor.isValid(caficultor: Caficultor(name: "Juan", lastname: "Perez", birthDate: .now, gender: "M", telephone: "1234567890", email: "aaa@aaa.aaa", address: "123 Street")))
         
         // ✅ All fields
         #expect(Caficultor.isValid(caficultor: Caficultor(name: "Ana", lastname: "Gomez", birthDate: .now, gender: "F", telephone: "1234567890", email: "abc@def.com", address: "456 Street")))
@@ -30,10 +30,10 @@ struct CaficultorTests {
     @Test("Name length boundaries are still valid if it's not empty")
     func testNameBoundaries() {
         // ✅ Min
-        #expect(Caficultor.isValid(caficultor: Caficultor(name: "A", lastname: "A", birthDate: .now, gender: "M", telephone: "", email: "", address: "A")))
+        #expect(Caficultor.isValid(caficultor: Caficultor(name: "A", lastname: "A", birthDate: .now, gender: "M", telephone: "1234567890", email: "aaa@aaa.aaa", address: "A")))
         
         // ✅ Max
-        #expect(Caficultor.isValid(caficultor: Caficultor(name: String(repeating: "X", count: 255), lastname: String(repeating: "X", count: 255), birthDate: .now, gender: "M", telephone: "", email: "", address: String(repeating: "X", count: 255))))
+        #expect(Caficultor.isValid(caficultor: Caficultor(name: String(repeating: "X", count: 255), lastname: String(repeating: "X", count: 255), birthDate: .now, gender: "M", telephone: "1234567890", email: "aaa@aaa.aaa", address: String(repeating: "X", count: 255))))
     }
     
     @Test("Email addresses formatting")
