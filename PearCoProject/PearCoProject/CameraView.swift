@@ -105,7 +105,7 @@ struct CameraView: View {
 //Version 2 reto
 import SwiftUI
 
-struct MenuView: View {
+struct CameraView: View {
    
    @State private var isPhotoTaken = false
    @State private var goToScan = false

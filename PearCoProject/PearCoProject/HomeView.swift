@@ -110,40 +110,30 @@ struct HomeView: View {
                                 Stepper("Año \(selectedYear)", value: $selectedYear, in: 2020...2100)
                                     .frame(maxWidth: 240, alignment: .leading)
                             }
-                            let currentData: RiskMonthResponse? =
-                                riskVM.monthly.indices.contains(currentMonthIndex)
-                                ? riskVM.monthly[currentMonthIndex]
-                                : nil
-
-                            // Render del mes actual (tabla bonita con barras horizontales por fila)
-                            Group {
-                                if riskVM.isLoading {
-                                    ProgressView("Cargando riesgo mensual…")
-                                } else if let err = riskVM.error {
-                                    VStack(spacing: 8) {
-                                        Text("Error: \(err)").foregroundStyle(.red)
-                                        Button("Reintentar") {
-                                            Task {
-                                                await riskVM.fetchMonthly(
-                                                    regionID: regionID(for: selectedRegion),
-                                                    year: selectedYear
-                                                )
-                                            }
-                                        }
+                            // ✅ NUEVO: sección mensual aislada para que el compilador no se ahogue
+                            MonthlyRiskSection(
+                                riskVM: riskVM,
+                                selectedRegionName: selectedRegion.rawValue,
+                                regionIDProvider: { regionID(for: selectedRegion) },
+                                selectedYear: selectedYear,
+                                monthNames: monthNames,
+                                currentMonthIndex: currentMonthIndex,
+                                categoryColor: { (cat: String) -> Color in
+                                    // usar la función existente, pero con firma explícita para evitar ambigüedad
+                                    self.categoryColor(cat)
+                                },
+                                diseaseIcon: { (d: String) -> String in
+                                    self.diseaseIcon(d)
+                                },
+                                onRetry: {
+                                    Task {
+                                        await riskVM.fetchMonthly(
+                                            regionID: regionID(for: selectedRegion),
+                                            year: selectedYear
+                                        )
                                     }
-                                } else if let mes = currentData {
-                                    PrettyMonthTableView(
-                                        monthName: monthNames[currentMonthIndex],
-                                        regionName: selectedRegion.rawValue,
-                                        items: mes.results,
-                                        categoryColor: categoryColor,
-                                        diseaseIcon: diseaseIcon
-                                    )
-                                } else {
-                                    Text("Sin datos del mes actual.")
-                                        .foregroundStyle(.secondary)
                                 }
-                            }
+                            )
                         }
                         // ✅ FIN NUEVA sección
                         
@@ -190,15 +180,50 @@ struct HomeView: View {
                                 )
                             }
                         }
-                        .onAppear {
-                            if !hasAcceptedTerms {
-                                showTerms = true
-                            }
-                        }
                     }
                 }
             }
+// MARK: - Subview aislada (evita los errores de genéricos del ViewBuilder)
+@MainActor
+@ViewBuilder
+private func MonthlyRiskSection(
+    riskVM: RiskVM,
+    selectedRegionName: String,
+    regionIDProvider: () -> String,
+    selectedYear: Int,
+    monthNames: [String],
+    currentMonthIndex: Int,
+    categoryColor: @escaping (String) -> Color,
+    diseaseIcon: @escaping (String) -> String,
+    onRetry: @escaping () -> Void
+) -> some View {
+    VStack(alignment: .leading, spacing: 16) {
+        // 👇 Contenido (cargado/errores/datos) en ramas cortas y claras
+        if riskVM.isLoading {
+            ProgressView("Cargando riesgo mensual…")
+        } else if let err = riskVM.error {
+            VStack(spacing: 8) {
+                Text("Error: \(err)").foregroundStyle(.red)
+                Button("Reintentar", action: onRetry)
+            }
+        } else {
+            if riskVM.monthly.indices.contains(currentMonthIndex) {
+                let items = riskVM.monthly[currentMonthIndex].results
+                PrettyMonthTable(
+                    monthName: monthNames[currentMonthIndex],
+                    regionName: selectedRegionName,
+                    items: items,
+                    categoryColor: categoryColor,
+                    diseaseIcon: diseaseIcon
+                )
+            } else {
+                Text("Sin datos del mes actual.")
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+}
+
 #Preview {
     HomeView()
 }
-
