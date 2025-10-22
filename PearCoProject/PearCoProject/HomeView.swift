@@ -11,28 +11,28 @@ struct HomeView: View {
     @AppStorage("hasAcceptedTerms") private var hasAcceptedTerms = false
     @State private var showTerms = false
     
+    private let DATA_YEAR = 2025
+    
     private let REGION_JALTENANGO = "f9b355d6-c40e-49c2-b0cc-526145b9b3fa"
     private let REGION_SANCRIS = "03473535-bd2e-4ea6-a5df-60c4525002a8"
     
     let sageGreen = Color(red: 176/255, green: 190/255, blue: 169/255)
-    // ✅ NUEVOOO
     private enum RegionChoice: String, CaseIterable, Identifiable {
         case jaltenango = "Jaltenango de la Paz"
         case sanCris    = "San Cristóbal de las Casas"
         var id: String { rawValue }
     }
     @State private var selectedRegion: RegionChoice = .jaltenango
-    @State private var selectedYear: Int = Calendar.current.component(.year, from: Date())
     @State private var selectedMonthIndex: Int = Calendar.current.component(.month, from: Date()) - 1  // 0..11
     private let monthNames = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     private func regionID(for choice: RegionChoice) -> String {
         choice == .jaltenango ? REGION_JALTENANGO : REGION_SANCRIS
     }
-    private var currentMonthIndex: Int { Calendar.current.component(.month, from: Date()) - 1 }
     private func categoryColor(_ cat: String) -> Color {
         switch cat.lowercased() {
         case "alto":  return .red
         case "medio": return .orange
+        case "bajo": return .green
         default:      return .green
         }
     }
@@ -45,107 +45,113 @@ struct HomeView: View {
         default:            return "exclamationmark.triangle.fill"
         }
     }
+    private func stepMonth(_ delta: Int){
+        selectedMonthIndex = (selectedMonthIndex + delta + 12) % 12
+    }
     
     var body: some View {
         NavigationStack {
             ZStack {
                 HStack(spacing: 0) {
                     // Contenido principal
-                    VStack(spacing: 40) {
-                        // Título
-                        Text("Inicio")
-                            .font(.system(size: 55, weight: .bold))
-                            .foregroundColor(Color.verdeOscuro)
-                        
-                        Text("Toma una foto de la planta para analizar su salud")
-                            .font(.title2)
-                            .foregroundColor(.black)
-
-                        ZStack {
-                            Image("planta")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height: 350)
-                                .clipped()
-                                .cornerRadius(20)
+                    ScrollView {
+                        VStack(spacing: 40) {
+                            // Título
+                            Text("Inicio")
+                                .font(.system(size: 55, weight: .bold))
+                                .foregroundColor(Color.verdeOscuro)
+                            
+                            Text("Toma una foto de la planta para analizar su salud")
+                                .font(.title2)
+                                .foregroundColor(.black)
+                            
+                            ZStack {
+                                Image("planta")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 350)
+                                    .clipped()
+                                    .cornerRadius(20)
+                                
+                                NavigationLink(destination: CameraView()) {
+                                    Image(systemName: "camera")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                        .padding(30)
+                                        .background(Color.verdeOscuro)
+                                        .clipShape(Circle())
+                                }
+                            }
                             
                             NavigationLink(destination: CameraView()) {
-                                Image(systemName: "camera")
-                                    .font(.system(size: 30))
+                                Text("Tomar foto")
+                                    .font(.title)
                                     .foregroundColor(.white)
-                                    .padding(30)
-                                    .background(Color.verdeOscuro)
-                                    .clipShape(Circle())
+                                    .padding()
+                                    .frame(maxWidth: 500, maxHeight: 100)
+                                    .background(Color.verdeBoton)
+                                    .cornerRadius(15)
                             }
-                        }
-                        
-                        NavigationLink(destination: CameraView()) {
-                            Text("Tomar foto")
-                                .font(.title)
-                                .foregroundColor(.white)
-                                .padding()
-                                .frame(maxWidth: 500, maxHeight: 100)
-                                .background(Color.verdeBoton)
-                                .cornerRadius(15)
-                        }
-                        
-                        // Gráfica
-                        // ✅ NUEVO: Sección del RIESGO MENSUAL (debajo de tu gráfica)
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("Riesgo mensual por región")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.verdeOscuro)
+                            
+                            // Gráfica
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("Riesgo mensual por región")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.verdeOscuro)
+                                
+                                // Controles: Región + Año y Mes
 
-                            // Controles: Región + Año
-                            HStack(spacing: 12) {
                                 Picker("Región", selection: $selectedRegion) {
-                                    ForEach(RegionChoice.allCases) { r in
-                                        Text(r.rawValue).tag(r)
+                                        ForEach(RegionChoice.allCases) { r in
+                                            Text(r.rawValue).tag(r)
+                                        }
                                     }
-                                }
-                                .pickerStyle(.segmented)
+                                    .pickerStyle(.segmented)
+                                HStack {
+                                    Button {
+                                        stepMonth(-1)
+                                    } label: {
+                                        Image(systemName: "chevron.left")
+                                    }
+                                    .buttonStyle(.plain)
 
-                                Stepper("Año \(selectedYear)", value: $selectedYear, in: 2020...2100)
-                                    .frame(maxWidth: 240, alignment: .leading)
-                                Picker("Mes", selection: $selectedMonthIndex) {
-                                    ForEach(0..<monthNames.count, id: \.self) { i in
-                                        Text(monthNames[i]).tag(i)
+                                    Spacer()
+
+                                    Text("\(monthNames[selectedMonthIndex]) • \(String(DATA_YEAR))")
+                                        .font(.headline)
+
+                                    Spacer()
+
+                                    Button {
+                                        stepMonth(+1)
+                                    } label: {
+                                        Image(systemName: "chevron.right")
                                     }
+                                    .buttonStyle(.plain)
                                 }
-                                .pickerStyle(.menu) // usa .segmented si quieres, pero ocupará mucho ancho
+                                
+                                MonthlyRiskSection(
+                                    riskVM: riskVM,
+                                    selectedRegionName: selectedRegion.rawValue,
+                                    monthNames: monthNames,
+                                    currentMonthIndex: selectedMonthIndex,
+                                    categoryColor: { self.categoryColor($0)},
+                                    diseaseIcon: { self.diseaseIcon($0)},
+                                    ){
+                                        Task {
+                                            await riskVM.fetchMonthly(
+                                                regionID: regionID(for: selectedRegion),
+                                                year: DATA_YEAR
+                                            )
+                                        }
+                                    }
                             }
-                            // ✅ NUEVO: sección mensual aislada para que el compilador no se ahogue
-                            MonthlyRiskSection(
-                                riskVM: riskVM,
-                                selectedRegionName: selectedRegion.rawValue,
-                                regionIDProvider: { regionID(for: selectedRegion) },
-                                selectedYear: selectedYear,
-                                monthNames: monthNames,
-                                currentMonthIndex: selectedMonthIndex,
-                                categoryColor: { (cat: String) -> Color in
-                                    // usar la función existente, pero con firma explícita para evitar ambigüedad
-                                    self.categoryColor(cat)
-                                },
-                                diseaseIcon: { (d: String) -> String in
-                                    self.diseaseIcon(d)
-                                },
-                                onRetry: {
-                                    Task {
-                                        await riskVM.fetchMonthly(
-                                            regionID: regionID(for: selectedRegion),
-                                            year: selectedYear
-                                        )
-                                    }
-                                }
-                            )
+                            
+                            Spacer(minLength: 10)
                         }
-                        // ✅ FIN NUEVA sección
-                        
-                        Spacer()
-                            .padding(.bottom, 40)
+                        .padding(50)
                     }
-                    .padding(50)
                 }
 
                 MicrophoneButton(color: Color.verdeOscuro)
@@ -161,41 +167,28 @@ struct HomeView: View {
                 }
             }
             .greenSidebar()
-            .task { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: selectedYear) }
-            .refreshable { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: selectedYear) }
+            .task { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: DATA_YEAR) }
+            .refreshable { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: DATA_YEAR) }
             .onAppear {
                 if !hasAcceptedTerms {
                     showTerms = true
                 }
             }
-            // ✅ NUEVO: recargar mensual al cambiar región/año
-                        .onChange(of: selectedRegion) { _, _ in
-                            Task {
-                                await riskVM.fetchMonthly(
-                                    regionID: regionID(for: selectedRegion),
-                                    year: selectedYear
-                                )
-                            }
-                        }
-                        .onChange(of: selectedYear) { _, _ in
-                            Task {
-                                await riskVM.fetchMonthly(
-                                    regionID: regionID(for: selectedRegion),
-                                    year: selectedYear
-                                )
-                            }
-                        }
+            // Recargar mensual al cambiar región/año
+            .onChange(of: selectedRegion) { _, _ in
+                Task {
+                    await riskVM.fetchMonthly( regionID: regionID(for: selectedRegion), year: DATA_YEAR)
                     }
                 }
             }
-// MARK: - Subview aislada (evita los errores de genéricos del ViewBuilder)
+        }
+    }
+// Subview aislada (evita los errores de genéricos del ViewBuilder)
 @MainActor
 @ViewBuilder
 private func MonthlyRiskSection(
     riskVM: RiskVM,
     selectedRegionName: String,
-    regionIDProvider: () -> String,
-    selectedYear: Int,
     monthNames: [String],
     currentMonthIndex: Int,
     categoryColor: @escaping (String) -> Color,
@@ -203,7 +196,7 @@ private func MonthlyRiskSection(
     onRetry: @escaping () -> Void
 ) -> some View {
     VStack(alignment: .leading, spacing: 16) {
-        // 👇 Contenido (cargado/errores/datos) en ramas cortas y claras
+        // Contenido (cargado/errores/datos) en ramas cortas y claras
         if riskVM.isLoading {
             ProgressView("Cargando riesgo mensual…")
         } else if let err = riskVM.error {
