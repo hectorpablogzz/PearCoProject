@@ -176,14 +176,24 @@ import CoreImage
 struct CameraScanView: View {
     @EnvironmentObject var predictionStatus: PredictionStatus
     @StateObject private var classifierViewModel = ClassifierViewModel()
+    @StateObject private var adviceManager = AdviceManager()
 
     @State private var capturedImage: UIImage?
     @State private var isImagePickerPresented = false
+    
+    // Normaliza y define qué etiquetas son "enfermedad"
+    private func normalize(_ s: String) -> String {
+        s.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    private var diseaseLabels: Set<String> {
+        ["roya", "broca", "ojo de gallo", "antracnosis"]
+    }
 
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                VStack(spacing: 16) {
+                VStack(alignment: .center, spacing: 16) {
                     // Preview de la foto
                     if let image = capturedImage {
                         Image(uiImage: image)
@@ -199,7 +209,7 @@ struct CameraScanView: View {
                     }
 
                     // Sección de diagnóstico con ShowSignView (usa tu pipeline existente)
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .center, spacing: 8) {
                         Text("Diagnóstico")
                             .font(.title2).bold().multilineTextAlignment(.center)
 
@@ -212,12 +222,46 @@ struct CameraScanView: View {
                                 }
                             }
                     }
-                    .padding(.horizontal, 70)
+                    .padding(.horizontal, 90)
+                    .padding(.vertical, 20)
                     .frame(maxWidth: 600)
                     .background(Color(.secondarySystemBackground))
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .padding(.horizontal)
                     .id("diagnosis-section")
+                    
+                    
+                    
+                    // Bloque de recomendaciones y precauciones
+                    if let advice = adviceManager.getAdvice(for: predictionStatus.topLabel), !predictionStatus.topLabel.isEmpty {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Fiabilidad: \(predictionStatus.topConfidence)")
+                                .font(.title3).bold()
+                            
+                            if let prec = advice.precauciones {
+                                Text("Precauciones:")
+                                    .font(.headline)
+                                ForEach(prec, id: \.self) { Text("• \($0)") }
+                            }
+                            
+                            if let reco = advice.recomendaciones {
+                                Text("Recomendaciones:")
+                                    .font(.headline)
+                                ForEach(reco, id: \.self) { Text("• \($0)") }
+                            }
+                            
+                            let raw = predictionStatus.topLabel
+                            if diseaseLabels.contains(normalize(raw)) {
+                                Text("Para más información, consulta al asistente de voz Latte.")
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                                    .padding(.top, 4)
+                            }
+                        }
+                        .padding(.horizontal, 70)
+                        .padding(.bottom, 20)
+                    }
+
 
                     if capturedImage != nil {
                         Button {
@@ -237,12 +281,16 @@ struct CameraScanView: View {
                 .frame(maxWidth: .infinity)
             }
             .onAppear {
+                
+                // Asegurar datos
+                if classifierViewModel.classifierData.isEmpty {
+                    classifierViewModel.loadJSON()
+                }
+                
+                adviceManager.loadAdvice()
+                
                 // Abrir cámara automáticamente al entrar si no hay imagen
                 if capturedImage == nil {
-                    // Asegurar datos
-                    if classifierViewModel.classifierData.isEmpty {
-                        classifierViewModel.loadJSON()
-                    }
                     isImagePickerPresented = true
                 }
             }

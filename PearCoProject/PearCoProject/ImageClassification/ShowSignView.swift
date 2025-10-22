@@ -16,12 +16,12 @@ struct ShowSignView: View {
             Text(labelData.label.capitalized)
                 .multilineTextAlignment(.center)
                 .font(Font
-                    .custom("Chapeau-Medium", size: 20))
+                    .custom("Chapeau-Medium", size: 24))
                 .foregroundColor(Color.verdeOscuro)
             
                 
         }
-        .padding(.horizontal, 20)
+        .padding(.horizontal, 50)
     }
        
 }
@@ -31,3 +31,4 @@ struct ShowSignView_Previews: PreviewProvider {
         ShowSignView(labelData: Classification())
     }
 }
+
