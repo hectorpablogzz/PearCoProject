@@ -118,7 +118,7 @@ struct AccountView: View {
                     }
                     .background(Color.white)
                     
-                    // Botón flotante
+                    
                     MicrophoneButton(color: Color.verdeOscuro)
                 }
             }

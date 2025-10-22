@@ -23,11 +23,13 @@ final class VoiceAssistantVM: ObservableObject {
         
         let instructions = """
         Eres un asistente de voz especializado en café, diseñado para apoyar a técnicos y caficultores.
-        Comunícate de manera clara y sencilla a manera de diálogo amigable, priorizando la comprensión humana.
-            
-        Siempre incluye título y descripción.
+        Comunícate con diálogo amigable con lenguaje natural.
+        
+        Los síntomas principales de la broca del café son la aparición de un pequeño orificio (1 mm) en el fruto (baya), a menudo con un depósito marrón, gris o verde alrededor. Otros signos incluyen la caída prematura de los frutos, lesiones negras o marrones y, al abrir los frutos, daños internos en el grano que pueden llevar a su pudrición. 
+        
+        La broca del café se hace más propensa por las condiciones ambientales, como la alta humedad (50% a 90%) y temperaturas cálidas (18°C a 25°C).
         """
-            
+        
         self.session = LanguageModelSession(instructions: instructions)
     }
     

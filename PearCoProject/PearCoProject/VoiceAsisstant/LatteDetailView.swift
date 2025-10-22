@@ -40,7 +40,7 @@ struct LatteDetailView: View {
                 el dispositivo no es elegible.
                 """
                 )
-        case.unavailable(let other):
+        case.unavailable(_):
             MessageView(
                 message: """
                 Latte no está disponible por razón desconocida.
