@@ -15,7 +15,6 @@ final class RiskVM {
     var isLoading: Bool = false
     var error: String?
 
-    // Cambia por tu dominio base
     private let baseURL = "https://pearcoflaskapi.onrender.com/"
 
     init(previewMonthly: [RiskMonthResponse]? = nil) {

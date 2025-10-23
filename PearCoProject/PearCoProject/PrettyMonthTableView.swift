@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Tabla bonita para mostrar el detalle del mes actual:
+// Tabla bonita para mostrar el detalle del mes actual:
 /// - Título con mes y región
 /// - 4 filas (Roya, Broca, Ojo de gallo, Antracnosis)
 /// - Barra horizontal proporcional al índice
@@ -17,9 +17,9 @@ struct PrettyMonthTable: View {
     let regionName: String
     let items: [RiskItem]
 
-    /// Colorea por categoría: "Bajo", "Medio", "Alto"
+    // Colorea por categoría: "Bajo", "Medio", "Alto"
     let categoryColor: (String) -> Color
-    /// Icono por enfermedad: "roya", "broca", "ojogallo", "antracnosis"
+    // Icono por enfermedad: "roya", "broca", "ojogallo", "antracnosis"
     let diseaseIcon: (String) -> String
 
     var body: some View {
@@ -48,8 +48,7 @@ struct PrettyMonthTable: View {
     }
 }
 
-// MARK: - Subvistas
-
+// Subvistas
 private struct PrettyRow: View {
     let item: RiskItem
     let categoryColor: (String) -> Color
