@@ -44,4 +44,21 @@ final class VoiceAssistantVM: ObservableObject {
             print("⚠️ Error generando respuesta: \(error.localizedDescription)")
         }
     }
+    
+    internal func hasValidResponse() -> Bool {
+        guard let response = response else { return false }
+        return !response.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
 }
+
+
+#if DEBUG
+extension VoiceAssistantVM {
+    /// Permite asignar response solo para tests
+    func _setResponseForTesting(_ text: String?) {
+        self.response = text
+    }
+}
+#endif
+
