@@ -29,6 +29,30 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1A26FCE62EAAABEB00D25A11"
+               BuildableName = "VoiceATesting.xctest"
+               BlueprintName = "VoiceATesting"
+               ReferencedContainer = "container:PearCoProject.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FBE5C09B2EAB0245000CD484"
+               BuildableName = "HomeViewAndTermsAndConditionsTests.xctest"
+               BlueprintName = "HomeViewAndTermsAndConditionsTests"
+               ReferencedContainer = "container:PearCoProject.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"

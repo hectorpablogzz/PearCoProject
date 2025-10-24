@@ -25,16 +25,3 @@ final class RiskAPIClient: RiskService {
         return try JSONDecoder().decode([RiskMonthResponse].self, from: data)
     }
 }
-
-// MARK: - EnvironmentKey para inyectar el servicio sin tocar ContentView
-private struct RiskServiceKey: EnvironmentKey {
-    static let defaultValue: RiskService = RiskAPIClient(
-        baseURL: URL(string: "https://TU_API/")!
-    )
-}
-extension EnvironmentValues {
-    var riskService: RiskService {
-        get { self[RiskServiceKey.self] }
-        set { self[RiskServiceKey.self] = newValue }
-    }
-}

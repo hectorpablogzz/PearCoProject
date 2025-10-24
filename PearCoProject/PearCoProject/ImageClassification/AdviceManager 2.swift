@@ -1,5 +1,4 @@
 import Foundation
-import Combine
 
 final class AdviceManager: ObservableObject {
     @Published var adviceList: [DiseaseAdvice] = []

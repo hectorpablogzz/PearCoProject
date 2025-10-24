@@ -115,6 +115,7 @@ struct HomeView: View {
                                         Image(systemName: "chevron.left")
                                     }
                                     .buttonStyle(.plain)
+                                    .accessibilityLabel("Anterior")
 
                                     Spacer()
 
@@ -129,6 +130,7 @@ struct HomeView: View {
                                         Image(systemName: "chevron.right")
                                     }
                                     .buttonStyle(.plain)
+                                    .accessibilityLabel("Siguiente")
                                 }
                                 
                                 MonthlyRiskSection(
@@ -170,6 +172,9 @@ struct HomeView: View {
             .task { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: DATA_YEAR) }
             .refreshable { await riskVM.fetchMonthly(regionID: regionID(for: selectedRegion), year: DATA_YEAR) }
             .onAppear {
+                if ProcessInfo.processInfo.arguments.contains("-ui_testing_reset_terms"){
+                    hasAcceptedTerms = false
+                }
                 if !hasAcceptedTerms {
                     showTerms = true
                 }
@@ -183,7 +188,7 @@ struct HomeView: View {
             }
         }
     }
-// Subview aislada (evita los errores de genéricos del ViewBuilder)
+// Subview aislada
 @MainActor
 @ViewBuilder
 private func MonthlyRiskSection(
