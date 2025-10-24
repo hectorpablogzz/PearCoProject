@@ -1,90 +1,65 @@
 //
-//  LoginView.swift
+//  LoginView .swift
 //  PearCoProject
 //
 //  Created by Alumno on 23/10/25.
 //
 
 
-
-
 import SwiftUI
 
 struct LoginView: View {
-    
     @EnvironmentObject var authViewModel: AuthViewModel
-    
     @State private var email = ""
     @State private var password = ""
     
     var body: some View {
-        GeometryReader { geo in
-            ScrollView {
-                VStack(spacing: 40) {
-                    
-                    // Encabezado
+        NavigationStack {
+            if authViewModel.isAuthenticated {
+                AlertView()
+                    .environmentObject(authViewModel)
+            } else {
+                VStack(spacing: 30) {
                     Text("Bienvenido")
-                        .font(.system(size: 55))
-                        .greenTitle() // De Styles.swift
-                        .frame(maxWidth: .infinity)
+                        .font(.largeTitle)
                         .padding(.top, 50)
-
-                    // Logo o Imagen
-                    Image(systemName: "leaf.fill") // Placeholder
+                
+                    Image("LogoCafeCare")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.25)
-                        .foregroundColor(Color.verdeOscuro) // De Styles.swift
+                        .frame(width: 200)
 
-                    // Campos de texto
-                    VStack(spacing: 15) {
-                        TextField("Correo electrónico", text: $email)
-                            .font(.system(size: geo.size.width * 0.045))
-                            .padding()
-                            .background(Color.grisFondo) // De Styles.swift
-                            .cornerRadius(12)
-                            .keyboardType(.emailAddress)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-
-                        SecureField("Contraseña", text: $password)
-                            .font(.system(size: geo.size.width * 0.045))
-                            .padding()
-                            .background(Color.grisFondo) // De Styles.swift
-                            .cornerRadius(12)
-                    }
-                    .padding(.horizontal, 60)
+                    TextField("Correo electrónico", text: $email)
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(12)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
                     
-                    // Mensaje de Error
-                    if let errorMessage = authViewModel.errorMessage {
-                        Text(errorMessage)
+                    SecureField("Contraseña", text: $password)
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(12)
+                    
+                    if let error = authViewModel.errorMessage {
+                        Text(error)
                             .foregroundColor(.red)
-                            .font(.system(size: geo.size.width * 0.035))
-                            .padding(.horizontal, 60)
                             .multilineTextAlignment(.center)
                     }
-
-                    // Botón de Ingresar
-                    Button(action: {
-                        authViewModel.login(email: email, password: password)
-                    }) {
-                        Text("Ingresar")
-                            .foregroundColor(.white)
-                            .font(.system(size: geo.size.width * 0.045, weight: .semibold))
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.verdeBoton) // De Styles.swift
-                            .cornerRadius(25)
-                            .padding(.horizontal, 130)
-                    }
                     
-                    Spacer()
+                    Button("Ingresar") {
+                        authViewModel.login(email: email, password: password)
+                    }
+                    .foregroundColor(.white)
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .cornerRadius(12)
+                    .padding(.horizontal, 40)
                 }
-                .frame(width: geo.size.width)
-                .frame(minHeight: geo.size.height)
+                .padding(.horizontal, 50)
+
             }
-            .background(Color.beige)
-            .edgesIgnoringSafeArea(.all)
         }
     }
 }
