@@ -5,7 +5,7 @@
 //  Created by Alumno on 23/10/25.
 //
 
-import Foundation
+/* import Foundation
 import SwiftUI
 
 struct User: Codable, Identifiable {
@@ -41,3 +41,4 @@ struct LoginResponse: Codable {
     let message: String
     let data: User?
 }
+*/

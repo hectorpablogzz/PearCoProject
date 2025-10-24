@@ -15,14 +15,12 @@ struct HomeViewAndTermsAndConditionsTest {
         // Arrange
         var hasAcceptedTerms = false
         var showTerms = !hasAcceptedTerms
-
         // Assert estado inicial
         #expect(showTerms == true)
 
         // Act — usuario acepta términos
         hasAcceptedTerms = true
         showTerms = !hasAcceptedTerms
-
         // Assert después de aceptar
         #expect(showTerms == false)
     }
@@ -35,13 +33,11 @@ struct HomeViewAndTermsAndConditionsTest {
 
         // Act — avanzar
         selectedMonthIndex = (selectedMonthIndex + 1) % totalMonths
-
         // Assert
         #expect(selectedMonthIndex == 10)   // Noviembre
 
         // Act — retroceder
         selectedMonthIndex = (selectedMonthIndex - 1 + totalMonths) % totalMonths
-
         // Assert
         #expect(selectedMonthIndex == 9)    // de vuelta a Octubre
     }
