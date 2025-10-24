@@ -14,11 +14,19 @@
 			remoteGlobalIDString = FBD032D72E70E1C700BD679E;
 			remoteInfo = PearCoProject;
 		};
+		FBE5C0A02EAB0245000CD484 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBD032D02E70E1C700BD679E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBD032D72E70E1C700BD679E;
+			remoteInfo = PearCoProject;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceATesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD032D82E70E1C700BD679E /* PearCoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PearCoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeViewAndTermsAndConditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -30,6 +38,11 @@
 		FBD032DA2E70E1C700BD679E /* PearCoProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PearCoProject;
+			sourceTree = "<group>";
+		};
+		FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HomeViewAndTermsAndConditionsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -49,6 +62,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBE5C0992EAB0245000CD484 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +77,7 @@
 			children = (
 				FBD032DA2E70E1C700BD679E /* PearCoProject */,
 				1A26FCE82EAAABEB00D25A11 /* VoiceATesting */,
+				FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
 				FBD032D92E70E1C700BD679E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -66,6 +87,7 @@
 			children = (
 				FBD032D82E70E1C700BD679E /* PearCoProject.app */,
 				1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */,
+				FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +140,29 @@
 			productReference = FBD032D82E70E1C700BD679E /* PearCoProject.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FBE5C09B2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE5C0A42EAB0245000CD484 /* Build configuration list for PBXNativeTarget "HomeViewAndTermsAndConditionsTests" */;
+			buildPhases = (
+				FBE5C0982EAB0245000CD484 /* Sources */,
+				FBE5C0992EAB0245000CD484 /* Frameworks */,
+				FBE5C09A2EAB0245000CD484 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBE5C0A12EAB0245000CD484 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
+			);
+			name = HomeViewAndTermsAndConditionsTests;
+			packageProductDependencies = (
+			);
+			productName = HomeViewAndTermsAndConditionsTests;
+			productReference = FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -134,6 +179,10 @@
 					};
 					FBD032D72E70E1C700BD679E = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					FBE5C09B2EAB0245000CD484 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = FBD032D72E70E1C700BD679E;
 					};
 				};
 			};
@@ -153,6 +202,7 @@
 			targets = (
 				FBD032D72E70E1C700BD679E /* PearCoProject */,
 				1A26FCE62EAAABEB00D25A11 /* VoiceATesting */,
+				FBE5C09B2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -166,6 +216,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FBD032D62E70E1C700BD679E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE5C09A2EAB0245000CD484 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -189,6 +246,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBE5C0982EAB0245000CD484 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -196,6 +260,11 @@
 			isa = PBXTargetDependency;
 			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
 			targetProxy = 1A26FCEB2EAAABEB00D25A11 /* PBXContainerItemProxy */;
+		};
+		FBE5C0A12EAB0245000CD484 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
+			targetProxy = FBE5C0A02EAB0245000CD484 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -425,6 +494,48 @@
 			};
 			name = Release;
 		};
+		FBE5C0A22EAB0245000CD484 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = daniela.HomeViewAndTermsAndConditionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Debug;
+		};
+		FBE5C0A32EAB0245000CD484 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = daniela.HomeViewAndTermsAndConditionsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -451,6 +562,15 @@
 			buildConfigurations = (
 				FBD032E42E70E1C900BD679E /* Debug */,
 				FBD032E52E70E1C900BD679E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE5C0A42EAB0245000CD484 /* Build configuration list for PBXNativeTarget "HomeViewAndTermsAndConditionsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE5C0A22EAB0245000CD484 /* Debug */,
+				FBE5C0A32EAB0245000CD484 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
