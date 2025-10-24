@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXContainerItemProxy section */
+		0F520AB52EAB3EC700B7268F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBD032D02E70E1C700BD679E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBD032D72E70E1C700BD679E;
+			remoteInfo = PearCoProject;
+		};
 		1A26FCEB2EAAABEB00D25A11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FBD032D02E70E1C700BD679E /* Project object */;
@@ -24,12 +31,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F520AB12EAB3EC700B7268F /* CaficultorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaficultorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceATesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD032D82E70E1C700BD679E /* PearCoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PearCoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeViewAndTermsAndConditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		0F520AB22EAB3EC700B7268F /* CaficultorTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = CaficultorTests;
+			sourceTree = "<group>";
+		};
 		1A26FCE82EAAABEB00D25A11 /* VoiceATesting */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = VoiceATesting;
@@ -48,6 +61,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0F520AAE2EAB3EC700B7268F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A26FCE42EAAABEB00D25A11 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -78,6 +98,7 @@
 				FBD032DA2E70E1C700BD679E /* PearCoProject */,
 				1A26FCE82EAAABEB00D25A11 /* VoiceATesting */,
 				FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
+				0F520AB22EAB3EC700B7268F /* CaficultorTests */,
 				FBD032D92E70E1C700BD679E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +109,7 @@
 				FBD032D82E70E1C700BD679E /* PearCoProject.app */,
 				1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */,
 				FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */,
+				0F520AB12EAB3EC700B7268F /* CaficultorTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +117,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0F520AB02EAB3EC700B7268F /* CaficultorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F520AB92EAB3EC700B7268F /* Build configuration list for PBXNativeTarget "CaficultorTests" */;
+			buildPhases = (
+				0F520AAD2EAB3EC700B7268F /* Sources */,
+				0F520AAE2EAB3EC700B7268F /* Frameworks */,
+				0F520AAF2EAB3EC700B7268F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0F520AB62EAB3EC700B7268F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0F520AB22EAB3EC700B7268F /* CaficultorTests */,
+			);
+			name = CaficultorTests;
+			packageProductDependencies = (
+			);
+			productName = CaficultorTests;
+			productReference = 0F520AB12EAB3EC700B7268F /* CaficultorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1A26FCE62EAAABEB00D25A11 /* VoiceATesting */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1A26FCEF2EAAAC2300D25A11 /* Build configuration list for PBXNativeTarget "VoiceATesting" */;
@@ -173,6 +218,10 @@
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					0F520AB02EAB3EC700B7268F = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = FBD032D72E70E1C700BD679E;
+					};
 					1A26FCE62EAAABEB00D25A11 = {
 						CreatedOnToolsVersion = 26.0.1;
 						TestTargetID = FBD032D72E70E1C700BD679E;
@@ -203,11 +252,19 @@
 				FBD032D72E70E1C700BD679E /* PearCoProject */,
 				1A26FCE62EAAABEB00D25A11 /* VoiceATesting */,
 				FBE5C09B2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
+				0F520AB02EAB3EC700B7268F /* CaficultorTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0F520AAF2EAB3EC700B7268F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A26FCE52EAAABEB00D25A11 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +289,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0F520AAD2EAB3EC700B7268F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A26FCE32EAAABEB00D25A11 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +320,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0F520AB62EAB3EC700B7268F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
+			targetProxy = 0F520AB52EAB3EC700B7268F /* PBXContainerItemProxy */;
+		};
 		1A26FCEC2EAAABEB00D25A11 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
@@ -269,6 +338,50 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0F520AB72EAB3EC700B7268F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RFGJ5SAN5D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.hector.CaficultorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Debug;
+		};
+		0F520AB82EAB3EC700B7268F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RFGJ5SAN5D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = name.hector.CaficultorTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Release;
+		};
 		1A26FCED2EAAABEB00D25A11 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -439,6 +552,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RFGJ5SAN5D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "La app necesita acceso a la cámara";
@@ -470,6 +584,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RFGJ5SAN5D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "La app necesita acceso a la cámara";
@@ -539,6 +654,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0F520AB92EAB3EC700B7268F /* Build configuration list for PBXNativeTarget "CaficultorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F520AB72EAB3EC700B7268F /* Debug */,
+				0F520AB82EAB3EC700B7268F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1A26FCEF2EAAAC2300D25A11 /* Build configuration list for PBXNativeTarget "VoiceATesting" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
