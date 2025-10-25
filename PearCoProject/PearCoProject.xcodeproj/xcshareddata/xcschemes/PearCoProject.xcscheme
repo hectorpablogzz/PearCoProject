@@ -63,6 +63,17 @@
                ReferencedContainer = "container:PearCoProject.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FBE18C5E2EAD4E7C0067EE82"
+               BuildableName = "LogInParcelsTests.xctest"
+               BlueprintName = "LogInParcelsTests"
+               ReferencedContainer = "container:PearCoProject.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

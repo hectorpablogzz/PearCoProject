@@ -2,24 +2,30 @@
 //  PearCoProjectApp.swift
 //  PearCoProject
 //
-//  Created by Alumno on 09/09/25.
-//
 
 import SwiftUI
-import SwiftData
+import SwiftData // Keep if needed
 
 @main
 struct PearCoProjectApp: App {
-    
+
+    // Create the shared AuthViewModel instance
+    @StateObject private var authViewModel = AuthViewModel()
+
+    // Keep PredictionStatus if needed elsewhere
     @StateObject private var predictionStatus = PredictionStatus()
-    
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(predictionStatus)
-                .modelContainer(for: CaficultorModel.self)
+            // Root view is NavigationStack containing ContentView
+            NavigationStack {
+                ContentView() // Always start with ContentView
+            }
+            // Make ViewModels available to all child views
+            .environmentObject(authViewModel)
+            .environmentObject(predictionStatus)
+            // Apply model container if needed globally
+            .modelContainer(for: CaficultorModel.self)
         }
     }
 }
-
-

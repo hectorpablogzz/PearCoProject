@@ -21,6 +21,13 @@
 			remoteGlobalIDString = FBD032D72E70E1C700BD679E;
 			remoteInfo = PearCoProject;
 		};
+		FBE18C632EAD4E7D0067EE82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBD032D02E70E1C700BD679E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBD032D72E70E1C700BD679E;
+			remoteInfo = PearCoProject;
+		};
 		FBE5C0A02EAB0245000CD484 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FBD032D02E70E1C700BD679E /* Project object */;
@@ -34,6 +41,7 @@
 		0F520AB12EAB3EC700B7268F /* CaficultorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CaficultorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoiceATesting.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBD032D82E70E1C700BD679E /* PearCoProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PearCoProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBE18C5F2EAD4E7C0067EE82 /* LogInParcelsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LogInParcelsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HomeViewAndTermsAndConditionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,6 +59,11 @@
 		FBD032DA2E70E1C700BD679E /* PearCoProject */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PearCoProject;
+			sourceTree = "<group>";
+		};
+		FBE18C602EAD4E7C0067EE82 /* LogInParcelsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LogInParcelsTests;
 			sourceTree = "<group>";
 		};
 		FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */ = {
@@ -82,6 +95,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBE18C5C2EAD4E7C0067EE82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBE5C0992EAB0245000CD484 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,6 +119,7 @@
 				1A26FCE82EAAABEB00D25A11 /* VoiceATesting */,
 				FBE5C09D2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
 				0F520AB22EAB3EC700B7268F /* CaficultorTests */,
+				FBE18C602EAD4E7C0067EE82 /* LogInParcelsTests */,
 				FBD032D92E70E1C700BD679E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,6 +131,7 @@
 				1A26FCE72EAAABEB00D25A11 /* VoiceATesting.xctest */,
 				FBE5C09C2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests.xctest */,
 				0F520AB12EAB3EC700B7268F /* CaficultorTests.xctest */,
+				FBE18C5F2EAD4E7C0067EE82 /* LogInParcelsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,6 +207,29 @@
 			productReference = FBD032D82E70E1C700BD679E /* PearCoProject.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FBE18C5E2EAD4E7C0067EE82 /* LogInParcelsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FBE18C652EAD4E7D0067EE82 /* Build configuration list for PBXNativeTarget "LogInParcelsTests" */;
+			buildPhases = (
+				FBE18C5B2EAD4E7C0067EE82 /* Sources */,
+				FBE18C5C2EAD4E7C0067EE82 /* Frameworks */,
+				FBE18C5D2EAD4E7C0067EE82 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FBE18C642EAD4E7D0067EE82 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FBE18C602EAD4E7C0067EE82 /* LogInParcelsTests */,
+			);
+			name = LogInParcelsTests;
+			packageProductDependencies = (
+			);
+			productName = LogInParcelsTests;
+			productReference = FBE18C5F2EAD4E7C0067EE82 /* LogInParcelsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FBE5C09B2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBE5C0A42EAB0245000CD484 /* Build configuration list for PBXNativeTarget "HomeViewAndTermsAndConditionsTests" */;
@@ -229,6 +274,10 @@
 					FBD032D72E70E1C700BD679E = {
 						CreatedOnToolsVersion = 16.4;
 					};
+					FBE18C5E2EAD4E7C0067EE82 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = FBD032D72E70E1C700BD679E;
+					};
 					FBE5C09B2EAB0245000CD484 = {
 						CreatedOnToolsVersion = 26.0.1;
 						TestTargetID = FBD032D72E70E1C700BD679E;
@@ -253,6 +302,7 @@
 				1A26FCE62EAAABEB00D25A11 /* VoiceATesting */,
 				FBE5C09B2EAB0245000CD484 /* HomeViewAndTermsAndConditionsTests */,
 				0F520AB02EAB3EC700B7268F /* CaficultorTests */,
+				FBE18C5E2EAD4E7C0067EE82 /* LogInParcelsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -273,6 +323,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		FBD032D62E70E1C700BD679E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FBE18C5D2EAD4E7C0067EE82 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,6 +367,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FBE18C5B2EAD4E7C0067EE82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FBE5C0982EAB0245000CD484 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,6 +393,11 @@
 			isa = PBXTargetDependency;
 			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
 			targetProxy = 1A26FCEB2EAAABEB00D25A11 /* PBXContainerItemProxy */;
+		};
+		FBE18C642EAD4E7D0067EE82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBD032D72E70E1C700BD679E /* PearCoProject */;
+			targetProxy = FBE18C632EAD4E7D0067EE82 /* PBXContainerItemProxy */;
 		};
 		FBE5C0A12EAB0245000CD484 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -609,6 +678,48 @@
 			};
 			name = Release;
 		};
+		FBE18C662EAD4E7D0067EE82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itesm.LogInParcelsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Debug;
+		};
+		FBE18C672EAD4E7D0067EE82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.itesm.LogInParcelsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PearCoProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PearCoProject";
+			};
+			name = Release;
+		};
 		FBE5C0A22EAB0245000CD484 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -686,6 +797,15 @@
 			buildConfigurations = (
 				FBD032E42E70E1C900BD679E /* Debug */,
 				FBD032E52E70E1C900BD679E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FBE18C652EAD4E7D0067EE82 /* Build configuration list for PBXNativeTarget "LogInParcelsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FBE18C662EAD4E7D0067EE82 /* Debug */,
+				FBE18C672EAD4E7D0067EE82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
