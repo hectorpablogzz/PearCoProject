@@ -17,14 +17,19 @@ Production base URL:
 ## What's in the stack
 
 ### Mobile App (iOS)
-- Swift 5 / Xcode 15+ / iOS 17 SDK  
-- SwiftUI (declarative UI)  
+- Swift / Xcode 26.0 / iOS 26.0 SDK  
+- SwiftUI (declarative UI)
+- SwiftData
+- Foundation Models
+- CoML
+- UIKit
 - Observation (`@Observable`) for state management  
 - URLSession for networking  
 - Codable for JSON parsing  
 - NavigationStack for navigation  
 - Charts for data visualization  
-- XCTest for unit/UI testing  
+- Unit Testing Bundle for unit testing
+- Error Management
 - Clean Code: small, clear views, consistent naming, early `guard` statements, no dead code  
 
 ### Backend API (Flask)
@@ -38,8 +43,8 @@ Production base URL:
 ## Requirements
 
 ### iOS
-- macOS with **Xcode 15+**  
-- iOS 17 or later (target)  
+- macOS with **Xcode 26.0**  
+- iOS 26.0  
 - Internet connection to access the Render API  
 
 ### API (optional, if you develop locally)
@@ -142,17 +147,6 @@ The iOS app doesn’t store data locally; all information is fetched in real tim
 
 ## Testing
 
-### iOS (XCTest)
-Run tests directly in Xcode:
-```
-⌘ + U
-```
-Example test names:
-- `testReportsDecoding_validPayload_returnsModels()`
-- `testSummaryRequest_http500_showsFriendlyError()`
-- `testOffline_showsNoInternetMessage_andDoesNotCrash()`
-
----
 
 ## Linting / Formatting
 - **Swift:** Use Xcode’s built-in formatter or SwiftFormat  
