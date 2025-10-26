@@ -5,181 +5,29 @@
 //  Created by Alumno on 11/01/24.
 //
 
-/*
-import SwiftUI
-
-struct CameraScanView: View {
-    @EnvironmentObject var predictionStatus: PredictionStatus
-    @StateObject var classifierViewModel = ClassifierViewModel()
-    private(set) var labelData: Classification
-    
-    @State private var scan = "Safe&Unkown"
-    @State private var capturedImage: UIImage?
-    @State private var scanResult: String?
-    //@State private var advice: String?
-    
-    @State private var isPhotoTaken = false
-    
-    var body: some View {
-        let predictionLabel = predictionStatus.topLabel
-        
-        VStack {
-            GeometryReader { geo in
-                
-                ZStack(alignment: .center){
-                    Color(.white).ignoresSafeArea()
-                    
-                    VStack(alignment: .center){
-                        
-                        VStack() {
-                            ShowSignView(labelData: classifierViewModel.getPredictionData(label: predictionLabel))
-                        }
-                        
-                        VStack() {
-                            LiveCameraRepresentable() {
-                                predictionStatus.setLivePrediction(with: $0, label: $1, confidence: $2)
-                            }
-                            .frame(width: geo.size.width * 0.5)
-                            
-                            
-                            
-                        }// VStack
-                        .onAppear(perform: classifierViewModel.loadJSON)
-                        
-                        
-                    }//VStack
-                    
-                }//ZStack
-            } //Geo
-            .greenSidebar()
-        }
-    }
-}
-
-struct CameraScanViewPreviews: PreviewProvider {
-    static var previews: some View {
-        CameraScanView(labelData: Classification())
-    }
-}
-
-
- */
-
-
-/*
-import SwiftUI
-
-struct CameraScanView: View {
-    @State private var capturedImage: UIImage?
-    @State private var isImagePickerPresented = false
-
-    // Estado para diagnóstico (conéctalo a tu modelo real)
-    @State private var diagnosisText: String = "Esperando diagnóstico…"
-
-    var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                VStack(spacing: 16) {
-                    // Zona de preview
-                    if let image = capturedImage {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxWidth: 600)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                            .padding(.horizontal)
-                    } else {
-                        // Tip: mientras no haya foto, mostramos un placeholder simple
-                        Text("Apunta a la hoja y toma una foto")
-                            .font(.headline)
-                            .padding(.top, 24)
-                    }
-
-                    // Sección de diagnóstico
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Diagnóstico")
-                            .font(.title2).bold()
-                        Text(diagnosisText)
-                            .font(.body)
-                            .padding(.vertical, 4)
-                    }
-                    .padding()
-                    .frame(maxWidth: 600)
-                    .background(Color(.secondarySystemBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal)
-                    .id("diagnosis-section")
-
-                    // Opcional: botón para repetir captura
-                    if capturedImage != nil {
-                        Button {
-                            isImagePickerPresented = true
-                        } label: {
-                            Text("Volver a tomar")
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: 300)
-                                .background(Color.verdeBoton)
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
-                        }
-                        .padding(.bottom, 32)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-            }
-            // Abrir cámara inmediatamente al entrar
-            .onAppear {
-                // Abre solo si aún no hay imagen
-                if capturedImage == nil {
-                    isImagePickerPresented = true
-                }
-            }
-            // Presentación de la cámara
-            .sheet(isPresented: $isImagePickerPresented) {
-                CameraPicker(capturedImage: $capturedImage,
-                             isPresented: $isImagePickerPresented,
-                             onCaptured: { image in
-                    // 1) Aquí puedes llamar a tu modelo de ML para clasificar.
-                    //    Reemplaza este mock por tu pipeline real:
-                    self.diagnosisText = analizar(image: image)
-
-                    // 2) Hacemos scroll hacia la sección de diagnóstico
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        withAnimation {
-                            proxy.scrollTo("diagnosis-section", anchor: .top)
-                        }
-                    }
-                })
-            }
-            .navigationTitle("Escaneo")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-
-    // Mock de análisis: conecta tu modelo y devuelve "broca", "ojo de gallo", "antracnosis" o "roya"
-    private func analizar(image: UIImage) -> String {
-        // TODO: reemplazar por tu clasificador actual
-        // Por ahora devolvemos un placeholder:
-        return "Resultado: Roya (confianza 0.92)."
-    }
-}
-
- */
-
-
 
 import SwiftUI
 import Vision
 import CoreImage
 
 struct CameraScanView: View {
+    
+    let userId: String
+    
+    @StateObject private var vm: ScanViewModel
     @EnvironmentObject var predictionStatus: PredictionStatus
     @StateObject private var classifierViewModel = ClassifierViewModel()
     @StateObject private var adviceManager = AdviceManager()
+    
+    init(userId: String) {
+        self.userId = userId
+        _vm = StateObject(wrappedValue: ScanViewModel(userId: userId))
+    }
 
     @State private var capturedImage: UIImage?
     @State private var isImagePickerPresented = false
+    @State private var diagnosisText: String = "Esperando diagnóstico…"
+    @State private var showResult = false
     
     // Normaliza y define qué etiquetas son "enfermedad"
     private func normalize(_ s: String) -> String {
@@ -188,6 +36,19 @@ struct CameraScanView: View {
 
     private var diseaseLabels: Set<String> {
         ["roya", "broca", "ojo de gallo", "antracnosis"]
+    }
+
+     // mapeo a los nombres de la tabla de diagnosticos de la BD
+    private func mapToDBLabel(_ raw: String) -> String {
+        switch normalize(raw) {
+        case "broca": return "Broca"
+        case "ojo de gallo": return "Ojo de gallo"
+        case "roya": return "Roya"
+        case "antracnosis": return "Antracnosis"
+        case "sano": return "Sano"
+        case "desconocido": return "Desconocido"
+        default: return raw
+        }
     }
 
     var body: some View {
@@ -280,6 +141,15 @@ struct CameraScanView: View {
                 }
                 .frame(maxWidth: .infinity)
             }
+            .overlay(alignment: .top) {
+                if vm.isSaving {
+                    ProgressView("Enviando…")
+                        .padding()
+                        .background(.ultraThinMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(.top, 8)
+                }
+            }
             .onAppear {
                 
                 // Asegurar datos
@@ -308,6 +178,20 @@ struct CameraScanView: View {
                         }
                     }
                 })
+            }
+            // En cuanto cambie la etiqueta top después de clasificar enviamos al backend y a la BD
+            .onChange(of: predictionStatus.topLabel) { _, newLabel in
+                guard let image = capturedImage, !newLabel.isEmpty else { return }
+                let labelForDB = mapToDBLabel(newLabel)
+                Task {
+                    await vm.uploadAndCreate(image: image, diagnostico: labelForDB)
+                    showResult = true
+                }
+            }
+            .alert("Resultado", isPresented: $showResult) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(vm.message ?? vm.error ?? "Listo")
             }
             .navigationTitle("Escaneo")
             .navigationBarTitleDisplayMode(.inline)
