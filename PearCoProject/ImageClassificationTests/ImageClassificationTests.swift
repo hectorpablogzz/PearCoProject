@@ -5,10 +5,11 @@
 //  Created by Emmy Molina Palma on 25/10/25.
 //
 
+
 import Foundation
 import Testing
 import UIKit
-@testable import PearCoProject
+@testable import ScanML
 
 // MARK: - Helpers (lógica pura)
 fileprivate func normalize(_ s: String) -> String {
@@ -54,7 +55,7 @@ struct ImageClassificationLiveTests {
         #expect(mapToDBLabel("Desconocido") == "Desconocido")
     }
 
-    // ---------- LIVE: POST /upload_image ----------
+    // ----------  POST /upload_image ----------
     @Test("LIVE /upload_image — retorna image_url y path")
     func testLiveUploadImage() async throws {
         let img = tinyTestImage()
@@ -66,7 +67,7 @@ struct ImageClassificationLiveTests {
         #expect(res.path.hasPrefix(String(userId) + "/"))
     }
 
-    // ---------- LIVE: POST /diagnostic (requiere usuario válido) ----------
+    // ---------- POST /diagnostic (requiere usuario válido) ----------
     @Test("LIVE /diagnostic — crea diagnóstico con usuario válido")
     func testLiveCreateDiagnostic() async throws {
         // Intenta leer la variable; si no existe, usa un fallback conocido
@@ -88,7 +89,7 @@ struct ImageClassificationLiveTests {
         #expect(created.message.localizedCaseInsensitiveContains("diagnóstico"))
     }
 
-    // ---------- LIVE: POST /diagnostic (error 400 por imagen_url faltante) ----------
+    // ---------- POST /diagnostic (error 400 por imagen_url faltante) ----------
     @Test("LIVE /diagnostic — 400 si falta imagen_url (JSON)")
     func testLiveCreateDiagnosticMissingImageURL() async throws {
         // Para validar el 400 no necesitamos usuario real (el backend valida antes de FK)
